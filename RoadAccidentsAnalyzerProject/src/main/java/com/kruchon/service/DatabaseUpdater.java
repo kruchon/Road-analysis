@@ -1,11 +1,8 @@
-package com.kruchon.service.database_updater;
+package com.kruchon.service;
 
+import com.kruchon.utils.FileOperationUtils;
 import org.apache.log4j.Logger;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -23,14 +20,18 @@ public class DatabaseUpdater {
 
         updateDatabaseService = Executors.newScheduledThreadPool(1);
         Runnable databaseUpdaterThread = new DatabaseUpdaterThread();
-        updateDatabaseService.scheduleAtFixedRate(databaseUpdaterThread,hourDelay,hourDelay, TimeUnit.SECONDS);
+        updateDatabaseService.scheduleAtFixedRate(databaseUpdaterThread,0,hourDelay, TimeUnit.HOURS);
     }
 
     private static class DatabaseUpdaterThread implements Runnable {
 
         @Override
         public void run() {
-            System.out.println("11111111");
+            try {
+                FileOperationUtils.downloadUsingStream("https://безопасныедороги.рф/opendata-storage/2015-crash.json.zip","./first.zip");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
