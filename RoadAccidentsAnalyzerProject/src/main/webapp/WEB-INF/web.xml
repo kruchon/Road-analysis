@@ -17,6 +17,12 @@
         </servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>global</servlet-name>
+        <url-pattern>*.form</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>global</servlet-name>
         <url-pattern>/</url-pattern>
