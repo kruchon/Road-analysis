@@ -28,7 +28,7 @@ public class DatabaseUpdater {
         @Override
         public void run() {
             try {
-                FileOperationUtils.downloadUsingStream("https://безопасныедороги.рф/opendata-storage/2015-crash.json.zip","./first.zip");
+                FileOperationUtils.downloadUsingNIO("https://xn--80abhddbmm5bieahtk5n.xn--p1ai/opendata-storage/2015-crash.json.zip","C://Users/111/Desktop/Новая папка (4)/first.zip");
             } catch (IOException e) {
                 e.printStackTrace();
             }
