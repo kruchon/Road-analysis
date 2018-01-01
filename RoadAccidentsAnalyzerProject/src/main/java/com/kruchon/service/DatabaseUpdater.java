@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 
 public class DatabaseUpdater {
 
-    private static ScheduledExecutorService updateDatabaseService = null;
-    private static String resourcesPath = null;
+    private final static ScheduledExecutorService updateDatabaseService = Executors.newScheduledThreadPool(1);
+    private final static String resourcesPath = System.getProperty("user.dir").replace("bin","resources/");
 
     public static void init(int hourDelay){
         if(updateDatabaseService != null){
@@ -18,13 +18,10 @@ public class DatabaseUpdater {
         }
 
         //TODO Bad solution, it's better to map resources folder
-        resourcesPath = System.getProperty("user.dir").replace("bin","resources/");
         File resourcesFolder = new File(resourcesPath);
         if (!resourcesFolder.exists()) {
             resourcesFolder.mkdir();
         }
-
-        updateDatabaseService = Executors.newScheduledThreadPool(1);
         Runnable databaseUpdaterThread = new DatabaseUpdaterThread();
         updateDatabaseService.scheduleAtFixedRate(databaseUpdaterThread,0,hourDelay, TimeUnit.HOURS);
     }
@@ -35,6 +32,7 @@ public class DatabaseUpdater {
         public void run() {
 
             try {
+                //TODO make operations with accidents data without reading/writing to file
                 FileOperationUtils.downloadUsingNIO("https://xn--80abhddbmm5bieahtk5n.xn--p1ai/opendata-storage/2015-crash.json.zip",resourcesPath+"first.zip");
                 FileOperationUtils.unpack(resourcesPath+"first.zip",resourcesPath);
             } catch (IOException e) {
