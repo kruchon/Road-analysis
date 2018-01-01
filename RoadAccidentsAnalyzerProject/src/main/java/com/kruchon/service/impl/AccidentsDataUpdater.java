@@ -1,9 +1,14 @@
-package com.kruchon.service;
+package com.kruchon.service.impl;
 
 import com.kruchon.utils.FileOperationUtils;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -26,9 +31,12 @@ public class AccidentsDataUpdater {
 
     private static class DatabaseUpdaterThread implements Runnable {
 
-        //TODO develop func to read array of accidents from json file
-        JSONArray readAccidentsData(){
-            return null;
+        private static JSONArray readAccidentsData() throws IOException, ParseException {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(resourcesPath + "2015-crash.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            JSONArray accidentsData = (JSONArray) jsonObject.get("items");
+            return accidentsData;
         }
 
         @Override
@@ -38,15 +46,17 @@ public class AccidentsDataUpdater {
                 //TODO make operations with accidents data without reading/writing to file
                 FileOperationUtils.downloadUsingNIO("https://xn--80abhddbmm5bieahtk5n.xn--p1ai/opendata-storage/2015-crash.json.zip",resourcesPath+"first.zip");
                 FileOperationUtils.unpack(resourcesPath+"first.zip",resourcesPath);
-                JSONArray accidentsDataJson = readAccidentsData();
+                JSONArray accidentsData = readAccidentsData();
 
                 //TODO develop OSMdataFiller
                 //TODO (characteristics for accidents such as speed mode of road, road type, slope of the road..)
-                //OSMAccidentsDataFiller.fill(accidentsDataJson);
+                //OSMAccidentsDataFiller.fill(accidentsData);
 
                 //TODO develop accidents data router
-                //AccidentsDataWriter.write(accidentsDataJson);
+                //AccidentsDataWriter.write(accidentsData);
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
         }

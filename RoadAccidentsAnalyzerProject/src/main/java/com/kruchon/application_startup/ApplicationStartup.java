@@ -1,6 +1,6 @@
 package com.kruchon.application_startup;
 
-import com.kruchon.service.AccidentsDataUpdater;
+import com.kruchon.service.impl.AccidentsDataUpdater;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
