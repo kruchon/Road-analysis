@@ -13,10 +13,6 @@ public class DatabaseUpdater {
     private final static String resourcesPath = System.getProperty("user.dir").replace("bin","resources/");
 
     public static void init(int hourDelay){
-        if(updateDatabaseService != null){
-            throw new RuntimeException("Repeated initialization");
-        }
-
         //TODO Bad solution, it's better to map resources folder
         File resourcesFolder = new File(resourcesPath);
         if (!resourcesFolder.exists()) {
