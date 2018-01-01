@@ -1,6 +1,6 @@
 package com.kruchon.application_startup;
 
-import com.kruchon.service.DatabaseUpdater;
+import com.kruchon.service.AccidentsDataUpdater;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +10,6 @@ public class ApplicationStartup {
 
     @PostConstruct
     public void init() {
-        DatabaseUpdater.init(24);
+        AccidentsDataUpdater.init(24);
     }
 }
