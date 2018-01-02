@@ -6,29 +6,23 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 public class AccidentsDataWriter {
-    public static void write(JSONArray accidentsData) {
+    public static void write(JSONArray accidentsData) throws IOException {
         LinkedList<Accident> accidents = convertJsonArrayToObjects(accidentsData);
 
         //TODO write POJOs and DAOs, then call DAO method to add data to the database
     }
 
-    private static LinkedList<Accident> convertJsonArrayToObjects(JSONArray accidentsData){
-        //TODO throw an exception upper in the call stack
+    private static LinkedList<Accident> convertJsonArrayToObjects(JSONArray accidentsData) throws IOException {
         @SuppressWarnings("unchecked")
-        LinkedList<Accident> result = (LinkedList<Accident>) accidentsData.stream()
-                .flatMap(x -> {
-                    try {
-                        return AccidentsFactory.createFromJsonObject((JSONObject) x);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    return null;
-                }).collect(Collectors.toList());
-        int x = 0;
+        LinkedList<Accident> result = new LinkedList<Accident>();
+        for(Object accident : accidentsData) {
+            result.add(AccidentsFactory.createFromJsonObject((JSONObject) accident));
+        }
         return result;
     }
 }
