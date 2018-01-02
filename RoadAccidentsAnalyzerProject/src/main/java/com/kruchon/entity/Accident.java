@@ -2,14 +2,13 @@ package com.kruchon.entity;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Time;
-import java.sql.Date;
+import java.util.Date;
 
 public interface Accident {
     BigInteger getId();
     String getEmTypeName();
     Date getEmMomentDate();
-    Time getEmMomentTime();
+    Date getEmMomentTime();
     String getSubject();
     BigDecimal getLongitude();
     BigDecimal getLatitude();
@@ -20,7 +19,7 @@ public interface Accident {
     Integer getRoadLoc();
     String getRegionName();
     String getLightTypeName();
-    String getAreaStateName();
+    String getTrAreaStateName();
     Integer getTranspAmount();
     Integer getSufferAmount();
     Integer getLossAmount();
@@ -31,7 +30,7 @@ public interface Accident {
     void setId(BigInteger id);
     void setEmTypeName(String emTypeName);
     void setEmMomentDate(Date emMomentDate);
-    void setEmMomentTime(Time emMomentTime);
+    void setEmMomentTime(Date emMomentTime);
     void setSubject(String subject);
     void setLongitude(BigDecimal longitude);
     void setLatitude(BigDecimal latitude);
@@ -42,7 +41,7 @@ public interface Accident {
     void setRoadLoc(Integer roadLoc);
     void setRegionName(String regionName);
     void setLightTypeName(String lightTypeName);
-    void setAreaStateName(String areaStateName);
+    void setTrAreaStateName(String areaStateName);
     void setTranspAmount(Integer transpAmount);
     void setSufferAmount(Integer sufferAmount);
     void setLossAmount(Integer lossAmount);

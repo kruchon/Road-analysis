@@ -4,15 +4,14 @@ import com.kruchon.entity.Accident;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 
 public class AccidentImpl implements Accident{
 
     private BigInteger id;
     private String emTypeName;
     private Date emMomentDate;
-    private Time emMomentTime;
+    private Date emMomentTime;
     private String subject;
     private BigDecimal longitude;
     private BigDecimal latitude;
@@ -23,7 +22,7 @@ public class AccidentImpl implements Accident{
     private Integer roadLoc;
     private String regionName;
     private String lightTypeName;
-    private String areaStateName;
+    private String trAreaStateName;
     private Integer transpAmount;
     private Integer sufferAmount;
     private Integer lossAmount;
@@ -62,12 +61,12 @@ public class AccidentImpl implements Accident{
     }
 
     @Override
-    public Time getEmMomentTime() {
+    public Date getEmMomentTime() {
         return emMomentTime;
     }
 
     @Override
-    public void setEmMomentTime(Time emMomentTime) {
+    public void setEmMomentTime(Date emMomentTime) {
         this.emMomentTime = emMomentTime;
     }
 
@@ -132,13 +131,13 @@ public class AccidentImpl implements Accident{
     }
 
     @Override
-    public String getRoadName() {
-        return roadName;
+    public void setRoadName(String roadName) {
+        this.roadName = roadName;
     }
 
     @Override
-    public void setRoadName(String roadName) {
-        this.roadName = roadName;
+    public String getRoadName() {
+        return roadName;
     }
 
     @Override
@@ -172,13 +171,13 @@ public class AccidentImpl implements Accident{
     }
 
     @Override
-    public String getAreaStateName() {
-        return areaStateName;
+    public String getTrAreaStateName() {
+        return trAreaStateName;
     }
 
     @Override
-    public void setAreaStateName(String areaStateName) {
-        this.areaStateName = areaStateName;
+    public void setTrAreaStateName(String trAreaStateName) {
+        this.trAreaStateName = trAreaStateName;
     }
 
     @Override
@@ -258,7 +257,7 @@ public class AccidentImpl implements Accident{
                 ", roadLoc=" + roadLoc +
                 ", regionName='" + regionName + '\'' +
                 ", lightTypeName='" + lightTypeName + '\'' +
-                ", areaStateName='" + areaStateName + '\'' +
+                ", areaStateName='" + trAreaStateName + '\'' +
                 ", transpAmount=" + transpAmount +
                 ", sufferAmount=" + sufferAmount +
                 ", lossAmount=" + lossAmount +
@@ -291,7 +290,7 @@ public class AccidentImpl implements Accident{
         if (regionName != null ? !regionName.equals(accident.regionName) : accident.regionName != null) return false;
         if (lightTypeName != null ? !lightTypeName.equals(accident.lightTypeName) : accident.lightTypeName != null)
             return false;
-        if (areaStateName != null ? !areaStateName.equals(accident.areaStateName) : accident.areaStateName != null)
+        if (trAreaStateName != null ? !trAreaStateName.equals(accident.trAreaStateName) : accident.trAreaStateName != null)
             return false;
         if (transpAmount != null ? !transpAmount.equals(accident.transpAmount) : accident.transpAmount != null)
             return false;
@@ -321,7 +320,7 @@ public class AccidentImpl implements Accident{
         result = 31 * result + (roadLoc != null ? roadLoc.hashCode() : 0);
         result = 31 * result + (regionName != null ? regionName.hashCode() : 0);
         result = 31 * result + (lightTypeName != null ? lightTypeName.hashCode() : 0);
-        result = 31 * result + (areaStateName != null ? areaStateName.hashCode() : 0);
+        result = 31 * result + (trAreaStateName != null ? trAreaStateName.hashCode() : 0);
         result = 31 * result + (transpAmount != null ? transpAmount.hashCode() : 0);
         result = 31 * result + (sufferAmount != null ? sufferAmount.hashCode() : 0);
         result = 31 * result + (lossAmount != null ? lossAmount.hashCode() : 0);

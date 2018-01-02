@@ -43,8 +43,8 @@ public class AccidentsDataUpdater {
 
             try {
                 //TODO make operations with accidents data without reading/writing to file
-                FileOperationUtils.downloadUsingNIO("https://xn--80abhddbmm5bieahtk5n.xn--p1ai/opendata-storage/2015-crash.json.zip",resourcesPath+"first.zip");
-                FileOperationUtils.unpack(resourcesPath+"first.zip",resourcesPath);
+               // FileOperationUtils.downloadUsingNIO("https://xn--80abhddbmm5bieahtk5n.xn--p1ai/opendata-storage/2015-crash.json.zip",resourcesPath+"first.zip");
+              //  FileOperationUtils.unpack(resourcesPath+"first.zip",resourcesPath);
                 JSONArray accidentsData = readAccidentsData();
 
                 //TODO develop OSMdataFiller
@@ -52,7 +52,7 @@ public class AccidentsDataUpdater {
                 //OSMAccidentsDataFiller.fill(accidentsData);
 
                 //TODO develop accidents data router
-                //AccidentsDataWriter.write(accidentsData);
+                AccidentsDataWriter.write(accidentsData);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
