@@ -1,4 +1,4 @@
-package com.kruchon.utils;
+package com.kruchon.utils.impl;
 
 import com.kruchon.entity.Accident;
 import com.kruchon.entity.impl.AccidentImpl;

@@ -1,7 +1,7 @@
 package com.kruchon.service.impl;
 
 import com.kruchon.entity.Accident;
-import com.kruchon.utils.AccidentsFactory;
+import com.kruchon.utils.impl.AccidentsFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

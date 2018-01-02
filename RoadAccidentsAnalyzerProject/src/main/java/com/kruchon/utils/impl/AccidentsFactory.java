@@ -1,6 +1,7 @@
-package com.kruchon.utils;
+package com.kruchon.utils.impl;
 
 import com.kruchon.entity.Accident;
+import com.kruchon.utils.impl.AccidentAdapterForMapping;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
 

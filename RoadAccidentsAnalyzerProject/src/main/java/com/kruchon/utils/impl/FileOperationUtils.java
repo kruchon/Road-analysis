@@ -1,4 +1,4 @@
-package com.kruchon.utils;
+package com.kruchon.utils.impl;
 
 import java.io.*;
 import java.net.URL;
