@@ -241,4 +241,93 @@ public class AccidentImpl implements Accident{
         this.mtRateName = mtRateName;
     }
 
+    @Override
+    public String toString() {
+        return "AccidentImpl{" +
+                "id=" + id +
+                ", emTypeName='" + emTypeName + '\'' +
+                ", emMomentDate=" + emMomentDate +
+                ", emMomentTime=" + emMomentTime +
+                ", subject='" + subject + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", okatoCode='" + okatoCode + '\'' +
+                ", placePath='" + placePath + '\'' +
+                ", roadSignificanceName='" + roadSignificanceName + '\'' +
+                ", roadName='" + roadName + '\'' +
+                ", roadLoc=" + roadLoc +
+                ", regionName='" + regionName + '\'' +
+                ", lightTypeName='" + lightTypeName + '\'' +
+                ", areaStateName='" + areaStateName + '\'' +
+                ", transpAmount=" + transpAmount +
+                ", sufferAmount=" + sufferAmount +
+                ", lossAmount=" + lossAmount +
+                ", sufferChildAmount=" + sufferChildAmount +
+                ", lossChildAmount=" + lossChildAmount +
+                ", mtRateName='" + mtRateName + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AccidentImpl accident = (AccidentImpl) o;
+
+        if (!id.equals(accident.id)) return false;
+        if (!emTypeName.equals(accident.emTypeName)) return false;
+        if (!emMomentDate.equals(accident.emMomentDate)) return false;
+        if (!emMomentTime.equals(accident.emMomentTime)) return false;
+        if (!subject.equals(accident.subject)) return false;
+        if (!longitude.equals(accident.longitude)) return false;
+        if (!latitude.equals(accident.latitude)) return false;
+        if (okatoCode != null ? !okatoCode.equals(accident.okatoCode) : accident.okatoCode != null) return false;
+        if (placePath != null ? !placePath.equals(accident.placePath) : accident.placePath != null) return false;
+        if (roadSignificanceName != null ? !roadSignificanceName.equals(accident.roadSignificanceName) : accident.roadSignificanceName != null)
+            return false;
+        if (roadName != null ? !roadName.equals(accident.roadName) : accident.roadName != null) return false;
+        if (roadLoc != null ? !roadLoc.equals(accident.roadLoc) : accident.roadLoc != null) return false;
+        if (regionName != null ? !regionName.equals(accident.regionName) : accident.regionName != null) return false;
+        if (lightTypeName != null ? !lightTypeName.equals(accident.lightTypeName) : accident.lightTypeName != null)
+            return false;
+        if (areaStateName != null ? !areaStateName.equals(accident.areaStateName) : accident.areaStateName != null)
+            return false;
+        if (transpAmount != null ? !transpAmount.equals(accident.transpAmount) : accident.transpAmount != null)
+            return false;
+        if (sufferAmount != null ? !sufferAmount.equals(accident.sufferAmount) : accident.sufferAmount != null)
+            return false;
+        if (lossAmount != null ? !lossAmount.equals(accident.lossAmount) : accident.lossAmount != null) return false;
+        if (sufferChildAmount != null ? !sufferChildAmount.equals(accident.sufferChildAmount) : accident.sufferChildAmount != null)
+            return false;
+        if (lossChildAmount != null ? !lossChildAmount.equals(accident.lossChildAmount) : accident.lossChildAmount != null)
+            return false;
+        return mtRateName != null ? mtRateName.equals(accident.mtRateName) : accident.mtRateName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + emTypeName.hashCode();
+        result = 31 * result + emMomentDate.hashCode();
+        result = 31 * result + emMomentTime.hashCode();
+        result = 31 * result + subject.hashCode();
+        result = 31 * result + longitude.hashCode();
+        result = 31 * result + latitude.hashCode();
+        result = 31 * result + (okatoCode != null ? okatoCode.hashCode() : 0);
+        result = 31 * result + (placePath != null ? placePath.hashCode() : 0);
+        result = 31 * result + (roadSignificanceName != null ? roadSignificanceName.hashCode() : 0);
+        result = 31 * result + (roadName != null ? roadName.hashCode() : 0);
+        result = 31 * result + (roadLoc != null ? roadLoc.hashCode() : 0);
+        result = 31 * result + (regionName != null ? regionName.hashCode() : 0);
+        result = 31 * result + (lightTypeName != null ? lightTypeName.hashCode() : 0);
+        result = 31 * result + (areaStateName != null ? areaStateName.hashCode() : 0);
+        result = 31 * result + (transpAmount != null ? transpAmount.hashCode() : 0);
+        result = 31 * result + (sufferAmount != null ? sufferAmount.hashCode() : 0);
+        result = 31 * result + (lossAmount != null ? lossAmount.hashCode() : 0);
+        result = 31 * result + (sufferChildAmount != null ? sufferChildAmount.hashCode() : 0);
+        result = 31 * result + (lossChildAmount != null ? lossChildAmount.hashCode() : 0);
+        result = 31 * result + (mtRateName != null ? mtRateName.hashCode() : 0);
+        return result;
+    }
 }
