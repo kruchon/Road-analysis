@@ -14,7 +14,9 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 @Component
 public class AccidentUpdater {
@@ -43,9 +45,9 @@ public class AccidentUpdater {
         return accidentsData;
     }
 
-    private LinkedList<Accident> mapJsonArrayToObjects(JSONArray accidentsData) throws IOException {
+    private List<Accident> mapJsonArrayToObjects(JSONArray accidentsData) throws IOException {
         @SuppressWarnings("unchecked")
-        LinkedList<Accident> result = new LinkedList<Accident>();
+        List<Accident> result = new ArrayList<Accident>();
         for(Object accident : accidentsData) {
             result.add(accidentService.createFromJsonObject((JSONObject) accident));
         }
@@ -53,7 +55,7 @@ public class AccidentUpdater {
     }
 
     private void mapAndSave(JSONArray accidentsData) throws IOException {
-        LinkedList<Accident> accidents = mapJsonArrayToObjects(accidentsData);
+        List<Accident> accidents = mapJsonArrayToObjects(accidentsData);
         accidentService.saveAll(accidents);
     }
 
