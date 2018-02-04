@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Component
@@ -69,7 +68,8 @@ public class AccidentUpdater {
         //TODO (characteristics for accidents such as speed mode of road, road type, slope of the road..)
         //OSMAccidentsDataFiller.fill(accidentsData);
 
-        //TODO develop accidents data router
+        //TODO implement full deletion in table Accidents
+        //clearAccidentsTable();
         mapAndSave(accidentsData);
     }
 }
