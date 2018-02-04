@@ -54,9 +54,7 @@ public class AccidentUpdater {
 
     private void mapAndSave(JSONArray accidentsData) throws IOException {
         LinkedList<Accident> accidents = mapJsonArrayToObjects(accidentsData);
-        for(Accident accident : accidents){
-            accidentService.save(accident);
-        }
+        accidentService.saveAll(accidents);
     }
 
     @Scheduled(fixedDelay = 86400000)
