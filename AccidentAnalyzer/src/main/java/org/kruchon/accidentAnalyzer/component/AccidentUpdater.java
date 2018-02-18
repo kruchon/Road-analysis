@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.kruchon.accidentAnalyzer.component.impl.AccidentClustererImpl;
 import org.kruchon.accidentAnalyzer.domain.Accident;
 import org.kruchon.accidentAnalyzer.service.AccidentService;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -55,13 +56,15 @@ public class AccidentUpdater {
 
     private void mapAndSave(JSONArray accidentsData) throws IOException {
         List<Accident> accidents = mapJsonArrayToObjects(accidentsData);
-        accidentService.saveAll(accidents);
+        //accidentService.saveAll(accidents);
+        AccidentsClusterer accidentsClusterer = new AccidentClustererImpl();
+        accidentsClusterer.calculate(accidents);
     }
 
     @Scheduled(fixedDelay = 86400000)
     public void updateAccidents() throws IOException, ParseException {
-        fileOperations.downloadUsingNIO("https://xn--80abhddbmm5bieahtk5n.xn--p1ai/opendata-storage/2015-crash.json.zip",resourcesPath+"first.zip");
-        fileOperations.unpack(resourcesPath+"first.zip",resourcesPath);
+        //fileOperations.downloadUsingNIO("https://xn--80abhddbmm5bieahtk5n.xn--p1ai/opendata-storage/2015-crash.json.zip",resourcesPath+"first.zip");
+        //fileOperations.unpack(resourcesPath+"first.zip",resourcesPath);
 
         JSONArray accidentsData = readAccidentsData();
 //TODO develop OSMdataFiller
