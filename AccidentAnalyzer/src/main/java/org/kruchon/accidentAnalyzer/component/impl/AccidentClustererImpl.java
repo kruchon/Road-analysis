@@ -5,6 +5,7 @@ import org.apache.commons.math3.ml.clustering.Cluster;
 import org.apache.commons.math3.ml.clustering.Clusterer;
 import org.apache.commons.math3.ml.clustering.DoublePoint;
 import org.apache.commons.math3.ml.clustering.KMeansPlusPlusClusterer;
+import org.apache.commons.math3.ml.distance.DistanceMeasure;
 import org.kruchon.accidentAnalyzer.component.AccidentsClusterer;
 import org.kruchon.accidentAnalyzer.domain.Accident;
 import org.kruchon.accidentAnalyzer.utils.AccidentAdapterForClustering;
@@ -60,7 +61,12 @@ public class AccidentClustererImpl implements AccidentsClusterer{
 
     private List<Cluster<DoublePoint>> calculateClusters(List<Accident> accidents){
         int numberOfClusters = round(accidents.size() * AccidentConst.NUMBER_OF_CLUSTERS_TO_TOTAL_SIZE);
-        Clusterer<DoublePoint> clusterer = new KMeansPlusPlusClusterer<DoublePoint>(numberOfClusters,100);
+        Clusterer<DoublePoint> clusterer = new KMeansPlusPlusClusterer<DoublePoint>(numberOfClusters, 1000, new DistanceMeasure() {
+            public double compute(double[] firstPoint, double[] secondPoint) {
+                double distance = Math.sqrt(Math.pow(firstPoint[0]-secondPoint[0],2)+Math.pow(firstPoint[1]-secondPoint[1],2));
+                return distance > 0.003 ? 100 : distance;
+            }
+        });
         List<DoublePoint> accidentPoints = new ArrayList<DoublePoint>();
         for(Accident accident : accidents){
             accidentPoints.add(new AccidentAdapterForClustering(accident));
@@ -109,7 +115,7 @@ public class AccidentClustererImpl implements AccidentsClusterer{
     public List<Cluster<DoublePoint>> calculate(List<Accident> accidents) {
 
         accidents = filterAccidents(accidents);
-        List<List<Accident>> accidentZones = devide(accidents);
+        /*List<List<Accident>> accidentZones = devide(accidents);
         accidentZones = filterZones(accidentZones);
         List<Cluster<DoublePoint>> result = new ArrayList<Cluster<DoublePoint>>();
         for(List<Accident> accidentZone : accidentZones){
@@ -117,7 +123,8 @@ public class AccidentClustererImpl implements AccidentsClusterer{
             if(clusters != null) {
                 result.addAll(clusters);
             }
-        }
+        }*/
+        List<Cluster<DoublePoint>> result = calculateClusters(accidents);
         return result;
     }
 }
