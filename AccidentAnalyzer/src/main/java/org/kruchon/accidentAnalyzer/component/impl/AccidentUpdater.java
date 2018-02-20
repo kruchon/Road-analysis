@@ -1,12 +1,16 @@
-package org.kruchon.accidentAnalyzer.component;
+package org.kruchon.accidentAnalyzer.component.impl;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.kruchon.accidentAnalyzer.component.impl.AccidentClustererImpl;
+import org.kruchon.accidentAnalyzer.component.AccidentsClusterer;
 import org.kruchon.accidentAnalyzer.domain.Accident;
+import org.kruchon.accidentAnalyzer.domain.AccidentCluster;
+import org.kruchon.accidentAnalyzer.domain.ClusterReport;
+import org.kruchon.accidentAnalyzer.domain.impl.ClusterReportImpl;
 import org.kruchon.accidentAnalyzer.service.AccidentService;
+import org.kruchon.accidentAnalyzer.utils.AccidentAdapterForClustering;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -58,7 +62,11 @@ public class AccidentUpdater {
         List<Accident> accidents = mapJsonArrayToObjects(accidentsData);
         //accidentService.saveAll(accidents);
         AccidentsClusterer accidentsClusterer = new AccidentClustererImpl();
-        accidentsClusterer.calculate(accidents);
+        List<AccidentCluster> clusters = accidentsClusterer.calculate(accidents);
+        ClusterReport clusterReport = new ClusterReportImpl();
+        clusterReport.setClusters(clusters);
+        clusterReport.getClustersWithMaxAccidentTypePercent(0.5f,8);
+        int b = 0;
     }
 
     @Scheduled(fixedDelay = 86400000)
@@ -74,5 +82,7 @@ public class AccidentUpdater {
         //TODO implement full deletion in table Accidents
         //clearAccidentsTable();
         mapAndSave(accidentsData);
+
+
     }
 }

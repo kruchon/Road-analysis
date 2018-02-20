@@ -1,13 +1,11 @@
 package org.kruchon.accidentAnalyzer.component.impl;
 
 import javafx.util.Pair;
-import org.apache.commons.math3.ml.clustering.Cluster;
-import org.apache.commons.math3.ml.clustering.Clusterer;
-import org.apache.commons.math3.ml.clustering.DoublePoint;
-import org.apache.commons.math3.ml.clustering.KMeansPlusPlusClusterer;
+import org.apache.commons.math3.ml.clustering.*;
 import org.apache.commons.math3.ml.distance.DistanceMeasure;
 import org.kruchon.accidentAnalyzer.component.AccidentsClusterer;
 import org.kruchon.accidentAnalyzer.domain.Accident;
+import org.kruchon.accidentAnalyzer.domain.AccidentCluster;
 import org.kruchon.accidentAnalyzer.utils.AccidentAdapterForClustering;
 import org.kruchon.accidentAnalyzer.utils.AccidentConst;
 import org.springframework.stereotype.Component;
@@ -72,18 +70,7 @@ public class AccidentClustererImpl implements AccidentsClusterer{
             accidentPoints.add(new AccidentAdapterForClustering(accident));
         }
         List<? extends Cluster<DoublePoint>> clusters = clusterer.cluster(accidentPoints);
-        clusters = filterClusters(clusters);
         return (List<Cluster<DoublePoint>>) clusters;
-    }
-
-    private List<? extends Cluster<DoublePoint>> filterClusters(List<? extends Cluster<DoublePoint>> clusters) {
-        List<Cluster<DoublePoint>> filteredClusters = new LinkedList<Cluster<DoublePoint>>();
-        for(Cluster<DoublePoint> cluster : clusters){
-            if(cluster.getPoints().size()>3){
-                filteredClusters.add(cluster);
-            }
-        }
-        return filteredClusters;
     }
 
     private List<Accident> filterAccidents(List<Accident> accidents){
@@ -112,7 +99,7 @@ public class AccidentClustererImpl implements AccidentsClusterer{
         return filteredList;
     }
 
-    public List<Cluster<DoublePoint>> calculate(List<Accident> accidents) {
+    public List<AccidentCluster> calculate(List<Accident> accidents) {
 
         accidents = filterAccidents(accidents);
         /*List<List<Accident>> accidentZones = devide(accidents);
@@ -124,7 +111,19 @@ public class AccidentClustererImpl implements AccidentsClusterer{
                 result.addAll(clusters);
             }
         }*/
-        List<Cluster<DoublePoint>> result = calculateClusters(accidents);
-        return result;
+        List<Cluster<DoublePoint>> clusteringResult = calculateClusters(accidents);
+        List<AccidentCluster> clusters = new LinkedList<AccidentCluster>();
+        for(Cluster<DoublePoint> clusteringResultNode : clusteringResult){
+            CentroidCluster centroidCluster = (CentroidCluster) clusteringResultNode;
+            AccidentCluster accidentCluster = new AccidentCluster();
+            List<Accident> accidentsInCluster = (ArrayList<Accident>) centroidCluster.getPoints();
+            accidentCluster.setAccidents(accidentsInCluster);
+            double latitude = centroidCluster.getCenter().getPoint()[0];
+            accidentCluster.setLatitude(latitude);
+            double longitude = centroidCluster.getCenter().getPoint()[1];
+            accidentCluster.setLongitude(longitude);
+            clusters.add(accidentCluster);
+        }
+        return clusters;
     }
 }

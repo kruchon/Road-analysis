@@ -12,7 +12,7 @@ public class AccidentAdapterForClustering extends DoublePoint {
         this.accident = accident;
     }
 
-    Accident getAccident(){
+    public Accident getAccident(){
         return accident;
     }
 
