@@ -33,8 +33,9 @@ public class ClusterReportImpl implements ClusterReport {
                 Map<String,Integer> accidentTypesCountMap = new HashMap<String,Integer>();
                 for(Accident accident : cluster.getAccidents()){
                     String accidentType = accident.getEmTypeName();
-                    Integer prevCount = accidentTypesCountMap.get(accidentType);
-                    accidentTypesCountMap.put(accidentType,prevCount++);
+                    Integer typeCount = accidentTypesCountMap.get(accidentType);
+                    typeCount = typeCount == null ? 1 : typeCount+1;
+                    accidentTypesCountMap.put(accidentType,typeCount);
                 }
                 int maxCount = 0;
                 for(Integer accidentTypeCount : accidentTypesCountMap.values()){

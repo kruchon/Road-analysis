@@ -99,6 +99,15 @@ public class AccidentClustererImpl implements AccidentsClusterer{
         return filteredList;
     }
 
+    private List<Accident> getAccidentsFromCentroidCluster(CentroidCluster centroidCluster){
+        List<Accident> accidents = new LinkedList<Accident>();
+        List<AccidentAdapterForClustering> accidentAdaptersForClustering = centroidCluster.getPoints();
+        for(AccidentAdapterForClustering accidentAdapterForClustering : accidentAdaptersForClustering){
+            accidents.add(accidentAdapterForClustering.getAccident());
+        }
+        return accidents;
+    }
+
     public List<AccidentCluster> calculate(List<Accident> accidents) {
 
         accidents = filterAccidents(accidents);
@@ -111,12 +120,13 @@ public class AccidentClustererImpl implements AccidentsClusterer{
                 result.addAll(clusters);
             }
         }*/
+
         List<Cluster<DoublePoint>> clusteringResult = calculateClusters(accidents);
         List<AccidentCluster> clusters = new LinkedList<AccidentCluster>();
         for(Cluster<DoublePoint> clusteringResultNode : clusteringResult){
             CentroidCluster centroidCluster = (CentroidCluster) clusteringResultNode;
             AccidentCluster accidentCluster = new AccidentCluster();
-            List<Accident> accidentsInCluster = (ArrayList<Accident>) centroidCluster.getPoints();
+            List<Accident> accidentsInCluster = getAccidentsFromCentroidCluster(centroidCluster);
             accidentCluster.setAccidents(accidentsInCluster);
             double latitude = centroidCluster.getCenter().getPoint()[0];
             accidentCluster.setLatitude(latitude);
