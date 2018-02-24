@@ -3,9 +3,11 @@ package org.kruchon.accidentAnalyzer.domain.impl;
 import org.kruchon.accidentAnalyzer.domain.Accident;
 import org.kruchon.accidentAnalyzer.domain.AccidentCluster;
 import org.kruchon.accidentAnalyzer.domain.ClusterReport;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class ClusterReportImpl implements ClusterReport {
 
     List<AccidentCluster> clusters = new ArrayList<AccidentCluster>();

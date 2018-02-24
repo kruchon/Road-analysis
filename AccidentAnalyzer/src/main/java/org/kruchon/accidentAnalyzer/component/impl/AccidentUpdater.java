@@ -11,6 +11,7 @@ import org.kruchon.accidentAnalyzer.domain.ClusterReport;
 import org.kruchon.accidentAnalyzer.domain.impl.ClusterReportImpl;
 import org.kruchon.accidentAnalyzer.service.AccidentService;
 import org.kruchon.accidentAnalyzer.utils.AccidentAdapterForClustering;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,9 @@ public class AccidentUpdater {
     @Resource(name="fileOperations")
     private FileOperations fileOperations;
     private final static String resourcesPath = System.getProperty("user.dir").replace("bin","resources/");
+
+    @Autowired
+    private ClusterReport clusterReport;
 
     @PostConstruct
     public void createResourcesFolder(){
@@ -63,10 +67,7 @@ public class AccidentUpdater {
         //accidentService.saveAll(accidents);
         AccidentsClusterer accidentsClusterer = new AccidentClustererImpl();
         List<AccidentCluster> clusters = accidentsClusterer.calculate(accidents);
-        ClusterReport clusterReport = new ClusterReportImpl();
         clusterReport.setClusters(clusters);
-        clusterReport.getClustersWithMaxAccidentTypePercent(0.5f,8);
-        int b = 0;
     }
 
     @Scheduled(fixedDelay = 86400000)
