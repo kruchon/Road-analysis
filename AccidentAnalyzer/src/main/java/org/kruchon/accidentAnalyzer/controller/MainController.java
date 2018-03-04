@@ -2,12 +2,14 @@ package org.kruchon.accidentAnalyzer.controller;
 
 import org.kruchon.accidentAnalyzer.domain.AccidentCluster;
 import org.kruchon.accidentAnalyzer.domain.ClusterReport;
+import org.kruchon.accidentAnalyzer.domain.GetClustersRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 
 @Controller
@@ -17,21 +19,18 @@ public class MainController {
     private ClusterReport clusterReport;
 
     @RequestMapping(value = "clusterMap", method = RequestMethod.GET)
-    public String sendClusterPage(){
-        clusterReport.getClustersWithMaxAccidentTypePercent(0.5f,5);
-        return "clusterMap";
+    public ModelAndView sendClusterPage(){
+         return new ModelAndView("clusterMap","getClustersRequest",new GetClustersRequest());
     }
 
-    @RequestMapping(
-            value = "getClusters",
-            params = {"minSize","minPercent"},
-            method = RequestMethod.GET)
-    @ResponseBody
-    public List<AccidentCluster> getClusters(
-            @RequestParam("minSize") int minSize,
-            @RequestParam("minPercent") float minPercent){
-        List<AccidentCluster> clusters = clusterReport.getClustersWithMaxAccidentTypePercent(minPercent,minSize);
-        return clusters;
+    @RequestMapping(value = "/getClusters", method = RequestMethod.POST)
+    public String getClusters(@ModelAttribute("getClustersRequest")GetClustersRequest getClustersRequest,
+                            BindingResult result, ModelMap model) {
+        Integer minSize = getClustersRequest.getMinSize();
+        Float minPercent = getClustersRequest.getMinPercent();
+        List<AccidentCluster> clusters = clusterReport.getClustersWithMaxAccidentTypePercent(minPercent, minSize);
+        model.addAttribute("clusters",clusters.toString());
+        return "clusterMap";
     }
 
 }

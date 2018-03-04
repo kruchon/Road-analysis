@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
     <title>Simple Map</title>
@@ -16,12 +16,13 @@
     </style>
 </head>
 <body>
+<input type="hidden" value="${clusters}"/>
 <div id="map"></div>
-<form id="getClustersForm" action="getClusters" method="GET">
-    Min cluster size: <input id="minSize" type="text"><br>
-    Min accident type percent <input id="minPercent" type="text"><br>
-    <button type="submit">Get clusters</button>
-</form>
+<form:form action="/accidentAnalyzer/getClusters" method="post" id="getClustersForm" commandName="getClustersRequest">
+    <form:input path="minSize"/><br>
+    <form:input path="minPercent"/><br>
+    <input type="submit" value="Get clusters"/>
+</form:form>
 <script>
     var map;
     function initMap() {
