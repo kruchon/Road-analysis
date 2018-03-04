@@ -37,4 +37,12 @@ public class AccidentCluster {
     }
 
 
+    @Override
+    public String toString() {
+        return "AccidentCluster{" +
+                "longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", accidents=" + accidents +
+                '}';
+    }
 }
