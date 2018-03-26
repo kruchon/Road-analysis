@@ -6,6 +6,6 @@ function getClusters() {
         minSize: minSizeValue,
         minPercent: minPercentValue
     }).done(function (response) {
-        clusters = response;
+        clusters = JSON.parse(response);
     });
 }
