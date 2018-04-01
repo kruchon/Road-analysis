@@ -1,8 +1,8 @@
 var accidents = [];
-
-$.post('getAccidents').done(function (response) {
-    accidents = JSON.parse(response);
-});
+//
+// $.post('getAccidents').done(function (response) {
+//     accidents = JSON.parse(response);
+// });
 
 var map;
 function initMap() {
