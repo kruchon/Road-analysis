@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.kruchon.accidentAnalyzer.component.AccidentsClusterer;
+import org.kruchon.accidentAnalyzer.component.AccidentsHolder;
 import org.kruchon.accidentAnalyzer.domain.Accident;
 import org.kruchon.accidentAnalyzer.domain.AccidentCluster;
 import org.kruchon.accidentAnalyzer.domain.ClusterReport;
@@ -36,6 +37,9 @@ public class AccidentUpdater {
     @Autowired
     private ClusterReport clusterReport;
 
+    @Autowired
+    private AccidentsHolder accidentsHolder;
+
     @PostConstruct
     public void createResourcesFolder(){
         //TODO Bad solution, it's better to map resources folder
@@ -65,6 +69,7 @@ public class AccidentUpdater {
     private void mapAndSave(JSONArray accidentsData) throws IOException {
         List<Accident> accidents = mapJsonArrayToObjects(accidentsData);
         //accidentService.saveAll(accidents);
+        accidentsHolder.setAccidents(accidents);
         AccidentsClusterer accidentsClusterer = new AccidentClustererImpl();
         List<AccidentCluster> clusters = accidentsClusterer.calculate(accidents);
         clusterReport.setClusters(clusters);

@@ -35,13 +35,4 @@ public class AccidentCluster {
     public void setAccidents(List<Accident> accidents) {
         this.accidents = accidents;
     }
-
-
-    @Override
-    public String toString() {
-        return "{" +
-                "\"longitude\":" + longitude +
-                ", \"latitude\":" + latitude +
-                '}';
-    }
 }
