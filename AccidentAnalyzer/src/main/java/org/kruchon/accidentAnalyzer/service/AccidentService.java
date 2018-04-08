@@ -29,13 +29,6 @@ public class AccidentService {
     @Transactional
     public void saveAll(List<Accident> accidents){
         Session session = sessionFactory.getCurrentSession();
-        Query alterAccidentsQuery = session.createSQLQuery("alter table accidents convert to character set 'utf8'");
-        Query setNamesQuery = session.createSQLQuery("SET NAMES 'utf8'");
-        Query setCharacterQuery = session.createSQLQuery("SET CHARACTER SET 'utf8'");
-        alterAccidentsQuery.executeUpdate();
-
-        setNamesQuery.executeUpdate();
-        setCharacterQuery.executeUpdate();
         for(int i = 0; i<accidents.size(); i++){
             Accident accident = accidents.get(i);
             session.save(accident);
