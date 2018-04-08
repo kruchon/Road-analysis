@@ -1,0 +1,373 @@
+//prepare tables for osm data
+CREATE TABLE changeset_tags (
+    id bigint NOT NULL, -- references changesets(id)
+    k VARCHAR(255) DEFAULT '',
+    v VARCHAR(255) DEFAULT ''
+);
+ 
+CREATE TABLE changesets (
+    id bigint NOT NULL, -- autoincrement primary key
+    user_id bigint NOT NULL, -- references users(id)
+    created_at timestamp ,
+    min_lat integer,
+    max_lat integer,
+    min_lon integer,
+    max_lon integer,
+    closed_at timestamp ,
+    num_changes integer DEFAULT 0 NOT NULL
+);
+
+## Nodes
+
+CREATE TABLE current_node_tags (
+    id bigint NOT NULL, -- primary key part 1/2; references current_nodes(id)
+    k VARCHAR(255) DEFAULT '', -- primary key part 2/2
+    v VARCHAR(255) DEFAULT ''
+);
+ 
+CREATE TABLE current_nodes (
+    id bigint NOT NULL, -- autoincrement primary key
+    latitude integer NOT NULL,
+    longitude integer NOT NULL,
+    changeset_id bigint NOT NULL, -- references changesets(id)
+    visible BOOLEAN NOT NULL,
+    `timestamp` timestamp ,
+    tile bigint NOT NULL,
+    version bigint NOT NULL
+);
+ 
+CREATE TABLE node_tags (
+    id bigint NOT NULL, -- primary key part 1/3; references nodes(id,version) part 1/2
+    version bigint NOT NULL, -- primary key part 2/3; references nodes(id,version) part 2/2
+    k VARCHAR(255) DEFAULT '', -- primary key part 3/3
+    v VARCHAR(255) DEFAULT ''
+);
+ 
+CREATE TABLE nodes (
+    id bigint NOT NULL, -- primary key part 1/2
+    latitude integer NOT NULL,
+    longitude integer NOT NULL,
+    changeset_id bigint NOT NULL, -- references changesets(id)
+    visible BOOLEAN NOT NULL,
+    `timestamp` timestamp ,
+    tile bigint NOT NULL,
+    version bigint NOT NULL -- primary key part 2/2
+);
+
+## Ways
+
+CREATE TABLE current_way_nodes (
+    id bigint NOT NULL, -- primary key part 1/2; references current_ways(id)
+    node_id bigint NOT NULL, -- references current_nodes(id)
+    sequence_id bigint NOT NULL -- primary key part 2/2
+);
+ 
+CREATE TABLE current_way_tags (
+    id bigint NOT NULL, -- primary key part 1/2; references current_ways(id)
+    k VARCHAR(255) DEFAULT '', -- primary key part 2/2
+    v VARCHAR(255) DEFAULT ''
+);
+ 
+CREATE TABLE current_ways (
+    id bigint NOT NULL, -- autoincrement primary key
+    changeset_id bigint NOT NULL, -- references changesets(id)
+    `timestamp` timestamp ,
+    visible BOOLEAN NOT NULL,
+    version bigint NOT NULL
+);
+ 
+CREATE TABLE way_nodes (
+    id bigint NOT NULL, -- primary key part 1/3; references ways(id, version) part 1/2
+    node_id bigint NOT NULL,
+    version bigint NOT NULL, -- primary key part 2/3; references ways(id, version) part 2/2
+    sequence_id bigint NOT NULL -- primary key part 3/3
+);
+ 
+CREATE TABLE way_tags (
+    id bigint DEFAULT 0 NOT NULL, -- primary key part 1/3; references ways(id, version) part 1/2
+    k VARCHAR(255) NOT NULL, -- primary key part 3/3
+    v VARCHAR(255) NOT NULL,
+    version bigint NOT NULL -- primary key part 2/3 -- references ways(id, version) part 2/2
+);
+ 
+CREATE TABLE ways (
+    id bigint DEFAULT 0 NOT NULL, -- primary key part 1/2
+    changeset_id bigint NOT NULL, -- references changesets(id)
+    `timestamp` timestamp ,
+    version bigint NOT NULL, -- primary key part 2/2
+    visible BOOLEAN DEFAULT true NOT NULL
+);
+
+## Relations
+
+CREATE TABLE current_relation_members (
+    id bigint NOT NULL, -- primary key part 1/5; references current_relations(id)
+    member_type INT NOT NULL, -- primary key part 2/5
+    member_id bigint NOT NULL, -- primary key part 3/5
+    member_role VARCHAR(255) NOT NULL, -- primary key part 4/5
+    sequence_id integer DEFAULT 0 NOT NULL -- primary key part 5/5
+);
+ 
+CREATE TABLE current_relation_tags (
+    id bigint NOT NULL, -- primary key part 1/2; references current_relations(id)
+    k VARCHAR(255) DEFAULT '', -- primary key part 2/2
+    v VARCHAR(255) DEFAULT ''
+);
+ 
+CREATE TABLE current_relations (
+    id bigint NOT NULL, -- autoincrement primary key
+    changeset_id bigint NOT NULL, -- references changesets(id)
+    `timestamp` timestamp ,
+    visible BOOLEAN NOT NULL,
+    version bigint NOT NULL
+);
+ 
+CREATE TABLE relation_members (
+    id bigint DEFAULT 0 NOT NULL, -- primary key part 1/5; references relations(id, version) part 1/2
+    member_type INT NOT NULL, -- primary key part 3/6
+    member_id bigint NOT NULL, -- primary key part 4/6
+    member_role VARCHAR(255) NOT NULL, -- primary key part 5/6
+    version bigint DEFAULT 0 NOT NULL, -- primary key part 2/6; references relations(id, version) part 2/2
+    sequence_id integer DEFAULT 0 NOT NULL -- primary key part 6/6
+);
+ 
+CREATE TABLE relation_tags (
+    id bigint DEFAULT 0 NOT NULL, -- primary key part 1/3; references relations(id, version) part 1/2
+    k VARCHAR(255) DEFAULT '', -- primary key part 3/3
+    v VARCHAR(255) DEFAULT '',
+    version bigint NOT NULL -- primary key part 2/3; references relations(id, version) part 2/2
+);
+ 
+CREATE TABLE relations (
+    id bigint DEFAULT 0 NOT NULL, -- primary key part 1/2
+    changeset_id bigint NOT NULL, -- references changesets(id)
+    `timestamp` timestamp ,
+    version bigint NOT NULL, -- primary key part 2/2
+    visible BOOLEAN DEFAULT true NOT NULL
+);
+
+##  Other geodata tables
+
+CREATE TABLE countries (
+    id integer NOT NULL, -- autoincrement primary key
+    code VARCHAR(2) NOT NULL,
+    min_lat double precision NOT NULL,
+    max_lat double precision NOT NULL,
+    min_lon double precision NOT NULL,
+    max_lon double precision NOT NULL
+);
+
+## GPX tables
+
+CREATE TABLE gps_points (
+    altitude double precision,
+    trackid integer NOT NULL,
+    latitude integer NOT NULL,
+    longitude integer NOT NULL,
+    gpx_id bigint NOT NULL, -- references gpx_files(id)
+    `timestamp` timestamp ,
+    tile bigint
+);
+ 
+CREATE TABLE gpx_file_tags (
+    gpx_id bigint DEFAULT 0 NOT NULL, -- references gpx_files(id)
+    tag VARCHAR(255) NOT NULL,
+    id bigint NOT NULL -- autoincrement primary key
+);
+ 
+CREATE TABLE gpx_files (
+    id bigint NOT NULL, -- autoincrement primary key
+    user_id bigint NOT NULL, -- references users(id)
+    visible BOOLEAN DEFAULT true NOT NULL,
+    name VARCHAR(255) DEFAULT '',
+    size bigint,
+    latitude double precision,
+    longitude double precision,
+    `timestamp` timestamp ,
+    description VARCHAR(255) DEFAULT '',
+    inserted BOOLEAN NOT NULL,
+    visibility INT DEFAULT 0 NOT NULL
+);
+
+## Administrative tables
+
+CREATE TABLE acls (
+    id integer NOT NULL, -- autoincrement primary key
+    address VARCHAR(255) NOT NULL,
+    netmask VARCHAR(255) NOT NULL,
+    k VARCHAR(255) NOT NULL,
+    v VARCHAR(255)
+);
+ 
+CREATE TABLE client_applications (
+    id integer NOT NULL, -- autoincrement primary key
+    name VARCHAR(255),
+    url VARCHAR(255),
+    support_url VARCHAR(255),
+    callback_url VARCHAR(255),
+    `key` VARCHAR(50),
+    secret VARCHAR(50),
+    user_id integer, -- references users(id)
+    created_at timestamp ,
+    updated_at timestamp ,
+    allow_read_prefs BOOLEAN DEFAULT false NOT NULL,
+    allow_write_prefs BOOLEAN DEFAULT false NOT NULL,
+    allow_write_diary BOOLEAN DEFAULT false NOT NULL,
+    allow_write_api BOOLEAN DEFAULT false NOT NULL,
+    allow_read_gpx BOOLEAN DEFAULT false NOT NULL,
+    allow_write_gpx BOOLEAN DEFAULT false NOT NULL
+);
+ 
+CREATE TABLE diary_comments (
+    id bigint NOT NULL, -- autoincrement primary key
+    diary_entry_id bigint NOT NULL, -- references diary_entries(id)
+    user_id bigint NOT NULL,
+    body text NOT NULL,
+    created_at timestamp ,
+    updated_at timestamp 
+);
+ 
+CREATE TABLE diary_entries (
+    id bigint NOT NULL, -- autoincrement primary key
+    user_id bigint NOT NULL, -- references users(id)
+    title VARCHAR(255) NOT NULL,
+    body text NOT NULL,
+    created_at timestamp ,
+    updated_at timestamp ,
+    latitude double precision,
+    longitude double precision,
+    language_code VARCHAR(255) DEFAULT 'en' -- references languages(code)
+);
+ 
+CREATE TABLE friends (
+    id bigint NOT NULL, -- autoincrement primary key
+    user_id bigint NOT NULL, -- references users(id)
+    friend_user_id bigint NOT NULL -- references users(id)
+);
+ 
+CREATE TABLE languages (
+    code VARCHAR(255) NOT NULL, -- primary key
+    english_name VARCHAR(255) NOT NULL,
+    native_name VARCHAR(255)
+);
+ 
+CREATE TABLE messages (
+    id bigint NOT NULL, -- autoincrement primary key
+    from_user_id bigint NOT NULL, -- references users(id)
+    title VARCHAR(255) NOT NULL,
+    body text NOT NULL,
+    sent_on timestamp ,
+    message_read BOOLEAN DEFAULT false NOT NULL,
+    to_user_id bigint NOT NULL, -- references users(id)
+    to_user_visible BOOLEAN DEFAULT true NOT NULL,
+    from_user_visible BOOLEAN DEFAULT true NOT NULL
+);
+ 
+CREATE TABLE oauth_nonces (
+    id integer NOT NULL, -- autoincrement primary key
+    nonce VARCHAR(255),
+    `timestamp` integer,
+    created_at timestamp ,
+    updated_at timestamp 
+);
+ 
+CREATE TABLE oauth_tokens (
+    id integer NOT NULL, -- autoincrement primary key
+    user_id integer, -- references users(id)
+    type VARCHAR(20),
+    client_application_id integer, -- references client_applications(id)
+    token VARCHAR(50),
+    secret VARCHAR(50),
+    authorized_at timestamp ,
+    invalidated_at timestamp ,
+    created_at timestamp ,
+    updated_at timestamp ,
+    allow_read_prefs BOOLEAN DEFAULT false NOT NULL,
+    allow_write_prefs BOOLEAN DEFAULT false NOT NULL,
+    allow_write_diary BOOLEAN DEFAULT false NOT NULL,
+    allow_write_api BOOLEAN DEFAULT false NOT NULL,
+    allow_read_gpx BOOLEAN DEFAULT false NOT NULL,
+    allow_write_gpx BOOLEAN DEFAULT false NOT NULL
+);
+ 
+CREATE TABLE schema_migrations (
+    version VARCHAR(255) NOT NULL
+);
+ 
+CREATE TABLE sessions (
+    id integer NOT NULL, -- autoincrement primary key
+    session_id VARCHAR(255),
+    DATA text,
+    created_at timestamp ,
+    updated_at timestamp 
+);
+ 
+CREATE TABLE user_blocks (
+    id integer NOT NULL, -- autoincrement primary key
+    user_id bigint NOT NULL, -- references users(id)
+    creator_id bigint NOT NULL, -- references users(id)
+    reason text NOT NULL,
+    ends_at timestamp ,
+    needs_view BOOLEAN DEFAULT false NOT NULL,
+    revoker_id bigint, -- references users(id)
+    created_at timestamp ,
+    updated_at timestamp 
+);
+ 
+CREATE TABLE user_preferences (
+    user_id bigint NOT NULL, -- primary key part 1/2; references users(id)
+    k VARCHAR(255) NOT NULL, -- primary key part 2/2
+    v VARCHAR(255) NOT NULL
+);
+ 
+CREATE TABLE user_roles (
+    id integer NOT NULL, -- autoincrement primary key
+    user_id bigint NOT NULL, -- references users(id)
+    created_at timestamp ,
+    updated_at timestamp ,
+    role INT NOT NULL,
+    granter_id bigint NOT NULL -- references users(id)
+);
+ 
+CREATE TABLE user_tokens (
+    id bigint NOT NULL, -- autoincrement primary key
+    user_id bigint NOT NULL, -- references users(id)
+    token VARCHAR(255) NOT NULL,
+    expiry timestamp ,
+    referer text
+);
+ 
+CREATE TABLE users (
+    email VARCHAR(255) NOT NULL,
+    id bigint NOT NULL, -- autoincrement primary key
+    active integer DEFAULT 0 NOT NULL,
+    pass_crypt VARCHAR(255) NOT NULL,
+    creation_time timestamp ,
+    display_name VARCHAR(255) DEFAULT '',
+    data_public BOOLEAN DEFAULT false NOT NULL,
+    description text DEFAULT '' NOT NULL,
+    home_lat double precision,
+    home_lon double precision,
+    home_zoom smallint DEFAULT 3,
+    nearby integer DEFAULT 50,
+    pass_salt VARCHAR(255),
+    image text,
+    email_valid BOOLEAN DEFAULT false NOT NULL,
+    new_email VARCHAR(255),
+    visible BOOLEAN DEFAULT true NOT NULL,
+    creation_ip VARCHAR(255),
+    languages VARCHAR(255)
+);
+
+
+
+//pbf to xml
+osmosis --read-pbf C:\Users\111\Desktop\123\Road-analysis\RU-MOS.osm.pbf --tf accept-ways highway=motorway,trunk,primary,secondary,tertiary,unclassified --write-xml C:\Users\111\Desktop\123\Road-analysis\RU-MOS.osm
+
+
+//xml to db
+osmosis --read-xml enableDateParsing=no file="C:\Users\111\Desktop\123\Road-analysis\RU-MOS.osm" --buffer --write-apidb dbType="mysql" host="localhost" database="accident_analyzer_db" user="root" password="GoWork13" validateSchemaVersion=no
+
+
+//pbf to db
+osmosis --read-pbf C:\Users\111\Desktop\123\Road-analysis\RU-MOS.osm.pbf --tf accept-ways highway=motorway,trunk,primary,secondary,tertiary,unclassified  --buffer --write-apidb dbType="mysql" host="localhost" database="accident_analyzer_db" user="root" password="GoWork13" validateSchemaVersion=no
