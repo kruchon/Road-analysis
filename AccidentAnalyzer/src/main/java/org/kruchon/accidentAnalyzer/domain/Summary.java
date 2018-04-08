@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface Summary {
     Query getQuery(Session session);
-    void setQuery();
+    void setQuery(String query);
     List execute(Session session);
 }

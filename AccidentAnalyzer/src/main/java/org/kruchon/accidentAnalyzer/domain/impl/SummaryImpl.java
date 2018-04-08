@@ -18,7 +18,7 @@ public class SummaryImpl implements Summary{
         return query.list();
     }
 
-    public void setQuery() {
+    public void setQuery(String query) {
         this.query = query;
     }
 }
