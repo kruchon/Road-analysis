@@ -1,0 +1,8 @@
+create database 
+accident_analyzer_db
+character set utf8
+collate utf8_unicode_ci;
+
+
+
++ возможно надо в конфигах mysql все настраивать на utf8
