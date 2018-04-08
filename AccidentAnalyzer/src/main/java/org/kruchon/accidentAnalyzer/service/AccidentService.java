@@ -18,6 +18,9 @@ import java.util.List;
 public class AccidentService {
 
     @Autowired
+    SummaryService summaryService;
+
+    @Autowired
     private SessionFactory sessionFactory;
 
     @Transactional

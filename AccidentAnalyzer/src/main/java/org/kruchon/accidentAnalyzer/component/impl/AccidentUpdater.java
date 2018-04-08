@@ -1,5 +1,6 @@
 package org.kruchon.accidentAnalyzer.component.impl;
 
+import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,6 +12,7 @@ import org.kruchon.accidentAnalyzer.domain.AccidentCluster;
 import org.kruchon.accidentAnalyzer.domain.ClusterReport;
 import org.kruchon.accidentAnalyzer.domain.impl.ClusterReportImpl;
 import org.kruchon.accidentAnalyzer.service.AccidentService;
+import org.kruchon.accidentAnalyzer.service.SummaryService;
 import org.kruchon.accidentAnalyzer.utils.AccidentAdapterForClustering;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,7 +28,6 @@ import java.util.List;
 
 @Component
 public class AccidentUpdater {
-
     @Autowired
     private AccidentService accidentService;
 

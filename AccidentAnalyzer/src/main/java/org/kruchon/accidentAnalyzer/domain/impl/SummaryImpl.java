@@ -3,6 +3,7 @@ package org.kruchon.accidentAnalyzer.domain.impl;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.kruchon.accidentAnalyzer.domain.Summary;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,9 +29,10 @@ public class SummaryImpl implements Summary{
     }
 
     public Query getQuery(Session session) {
-        return session.createQuery(query);
+        return session.createSQLQuery(query);
     }
 
+    @Transactional
     public List execute(Session session){
         Query query = getQuery(session);
         return query.list();
