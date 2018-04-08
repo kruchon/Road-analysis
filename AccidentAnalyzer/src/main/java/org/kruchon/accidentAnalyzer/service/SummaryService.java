@@ -22,6 +22,13 @@ public class SummaryService {
     }
 
     @Transactional
+    public void saveAll(List<Summary> summaries){
+        for(Summary summary : summaries){
+            save(summary);
+        }
+    }
+
+    @Transactional
     public List<Summary> getAll(){
         Session session = sessionFactory.getCurrentSession();
         String getSummary = "FROM org.kruchon.accidentAnalyzer.domain.impl.SummaryImpl";
