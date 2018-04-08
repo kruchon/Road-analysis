@@ -1,6 +1,7 @@
 package org.kruchon.accidentAnalyzer.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.json.simple.JSONObject;
@@ -35,6 +36,14 @@ public class AccidentService {
                 session.clear();
             }
         }
+    }
+
+    @Transactional
+    public void deleteAll(){
+        Session session = sessionFactory.getCurrentSession();
+        String stringQuery = "DELETE FROM ACCIDENTS";
+        Query query = session.createQuery(stringQuery);
+        query.executeUpdate();
     }
 
     public Accident createFromJsonObject(JSONObject jsonObject) throws IOException {
