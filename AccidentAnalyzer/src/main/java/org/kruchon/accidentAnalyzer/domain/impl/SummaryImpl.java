@@ -32,12 +32,6 @@ public class SummaryImpl implements Summary{
         return session.createSQLQuery(query);
     }
 
-    @Transactional
-    public List execute(Session session){
-        Query query = getQuery(session);
-        return query.list();
-    }
-
     public void setQuery(String query) {
         this.query = query;
     }

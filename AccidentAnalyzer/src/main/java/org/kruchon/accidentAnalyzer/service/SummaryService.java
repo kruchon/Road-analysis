@@ -29,6 +29,12 @@ public class SummaryService {
     }
 
     @Transactional
+    public List executeSummary(Session session, Summary summary){
+        Query query = summary.getQuery(session);
+        return query.list();
+    }
+
+    @Transactional
     public List<Summary> getAll(){
         Session session = sessionFactory.getCurrentSession();
         String getSummary = "FROM org.kruchon.accidentAnalyzer.domain.impl.SummaryImpl";

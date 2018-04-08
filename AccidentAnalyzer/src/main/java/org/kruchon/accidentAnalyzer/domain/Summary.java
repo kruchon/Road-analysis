@@ -8,7 +8,6 @@ import java.util.List;
 public interface Summary {
     Query getQuery(Session session);
     void setQuery(String query);
-    List execute(Session session);
     Long getId();
     void setId(Long id);
 }
