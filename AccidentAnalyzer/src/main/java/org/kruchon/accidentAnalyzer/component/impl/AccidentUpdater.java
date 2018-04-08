@@ -27,10 +27,10 @@ import java.util.List;
 @Component
 public class AccidentUpdater {
 
-    @Resource(name="accidentService")
+    @Autowired
     private AccidentService accidentService;
 
-    @Resource(name="fileOperations")
+    @Autowired
     private FileOperations fileOperations;
     private final static String resourcesPath = System.getProperty("user.dir").replace("bin","resources/");
 

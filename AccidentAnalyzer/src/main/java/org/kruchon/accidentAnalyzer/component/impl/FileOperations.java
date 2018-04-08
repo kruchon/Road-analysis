@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-@Component("fileOperations")
+@Component
 public class FileOperations {
 
     public static void downloadUsingStream(String urlStr, String file) throws IOException {
