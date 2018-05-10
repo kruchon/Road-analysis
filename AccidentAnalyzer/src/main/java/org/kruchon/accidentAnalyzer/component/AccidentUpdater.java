@@ -1,4 +1,4 @@
-package org.kruchon.accidentAnalyzer.component.impl;
+package org.kruchon.accidentAnalyzer.component;
 
 import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
@@ -7,9 +7,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.kruchon.accidentAnalyzer.component.AccidentsClusterer;
 import org.kruchon.accidentAnalyzer.component.AccidentsHolder;
+import org.kruchon.accidentAnalyzer.component.SummariesExecutor;
+import org.kruchon.accidentAnalyzer.component.impl.FileOperations;
 import org.kruchon.accidentAnalyzer.domain.Accident;
 import org.kruchon.accidentAnalyzer.domain.AccidentCluster;
 import org.kruchon.accidentAnalyzer.domain.ClusterReport;
+import org.kruchon.accidentAnalyzer.domain.Summary;
 import org.kruchon.accidentAnalyzer.domain.impl.ClusterReportImpl;
 import org.kruchon.accidentAnalyzer.service.AccidentService;
 import org.kruchon.accidentAnalyzer.service.SummaryService;
@@ -29,6 +32,9 @@ import java.util.List;
 @Component
 public class AccidentUpdater {
     @Autowired
+    SummaryService summaryService;
+
+    @Autowired
     private AccidentService accidentService;
 
     @Autowired
@@ -40,6 +46,9 @@ public class AccidentUpdater {
 
     @Autowired
     private AccidentsHolder accidentsHolder;
+
+    @Autowired
+    private SummariesExecutor summariesExecutor;
 
     @PostConstruct
     public void createResourcesFolder(){
@@ -72,9 +81,10 @@ public class AccidentUpdater {
         accidentService.deleteAll();
         accidentService.saveAll(accidents);
         accidentsHolder.setAccidents(accidents);
-        AccidentsClusterer accidentsClusterer = new AccidentClustererImpl();
+        summariesExecutor.executeAndSaveAllSummaries();
+        /*AccidentsClusterer accidentsClusterer = new AccidentClustererImpl();
         List<AccidentCluster> clusters = accidentsClusterer.calculate(accidents);
-        clusterReport.setClusters(clusters);
+        clusterReport.setClusters(clusters);*/
     }
 
     @Scheduled(fixedDelay = 86400000)
@@ -90,7 +100,5 @@ public class AccidentUpdater {
         //TODO implement full deletion in table Accidents
         //clearAccidentsTable();
         mapAndSave(accidentsData);
-
-
     }
 }

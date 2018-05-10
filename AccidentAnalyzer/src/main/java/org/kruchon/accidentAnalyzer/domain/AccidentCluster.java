@@ -1,10 +1,5 @@
 package org.kruchon.accidentAnalyzer.domain;
 
-import org.apache.commons.math3.ml.clustering.Cluster;
-import org.apache.commons.math3.ml.clustering.DoublePoint;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AccidentCluster {

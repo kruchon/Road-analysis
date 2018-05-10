@@ -1,13 +1,43 @@
 package org.kruchon.accidentAnalyzer.domain;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
-public interface Summary {
-    Query getQuery(Session session);
-    void setQuery(String query);
-    Long getId();
-    void setId(Long id);
+@Entity
+@Table(name="SUMMARIES")
+public class Summary implements Serializable{
+    private static final long serialVersionUID = 5323700715449849741L;
+    private String query;
+
+    @OneToMany
+    private List<SummaryResultValue> summaryResultValues;
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<SummaryResultValue> getSummaryResultValues() {
+        return summaryResultValues;
+    }
+
+    public void setSummaryResultValues(List<SummaryResultValue> summaryResultValues) {
+        this.summaryResultValues = summaryResultValues;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
 }
