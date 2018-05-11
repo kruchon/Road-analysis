@@ -2,7 +2,6 @@ package org.kruchon.accidentAnalyzer.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name="SUMMARIES")

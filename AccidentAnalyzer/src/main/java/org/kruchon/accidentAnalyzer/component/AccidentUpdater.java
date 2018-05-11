@@ -1,28 +1,19 @@
 package org.kruchon.accidentAnalyzer.component;
 
-import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.kruchon.accidentAnalyzer.component.AccidentsClusterer;
-import org.kruchon.accidentAnalyzer.component.AccidentsHolder;
-import org.kruchon.accidentAnalyzer.component.SummariesExecutor;
 import org.kruchon.accidentAnalyzer.component.impl.FileOperations;
 import org.kruchon.accidentAnalyzer.domain.Accident;
-import org.kruchon.accidentAnalyzer.domain.AccidentCluster;
 import org.kruchon.accidentAnalyzer.domain.ClusterReport;
-import org.kruchon.accidentAnalyzer.domain.Summary;
-import org.kruchon.accidentAnalyzer.domain.impl.ClusterReportImpl;
 import org.kruchon.accidentAnalyzer.service.AccidentService;
 import org.kruchon.accidentAnalyzer.service.SummaryService;
-import org.kruchon.accidentAnalyzer.utils.AccidentAdapterForClustering;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -31,8 +22,6 @@ import java.util.List;
 
 @Component
 public class AccidentUpdater {
-    @Autowired
-    SummaryService summaryService;
 
     @Autowired
     private AccidentService accidentService;

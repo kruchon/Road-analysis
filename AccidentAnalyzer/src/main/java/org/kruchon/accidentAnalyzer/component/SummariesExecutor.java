@@ -30,6 +30,7 @@ public class SummariesExecutor {
 
     @Transactional
     public void executeAndSaveAllSummaries(){
+        summariesCache.resetCache();
         Session session = sessionFactory.getCurrentSession();
         Collection<Summary> summaries = summariesCache.getAllSummaries();
         for(Summary summary : summaries) {

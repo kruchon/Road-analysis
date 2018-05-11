@@ -3,18 +3,13 @@ package org.kruchon.accidentAnalyzer.service;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.kruchon.accidentAnalyzer.component.SummariesCache;
 import org.kruchon.accidentAnalyzer.domain.Summary;
-import org.kruchon.accidentAnalyzer.domain.SummaryResultValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class SummaryService {
@@ -25,7 +20,7 @@ public class SummaryService {
     private SummariesCache summariesCache;
 
     @Autowired
-    SummaryResultValueService summaryResultValueService;
+    private SummaryResultValueService summaryResultValueService;
 
     @Transactional
     public void save(Summary summary) {
