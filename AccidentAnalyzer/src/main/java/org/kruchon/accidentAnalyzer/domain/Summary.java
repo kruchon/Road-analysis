@@ -10,9 +10,6 @@ public class Summary implements Serializable{
     private static final long serialVersionUID = 5323700715449849741L;
     private String query;
 
-    @OneToMany(mappedBy = "id")
-    private List<SummaryResultValue> summaryResultValues;
-
     @Id
     @GeneratedValue
     private Long id;
@@ -23,14 +20,6 @@ public class Summary implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<SummaryResultValue> getSummaryResultValues() {
-        return summaryResultValues;
-    }
-
-    public void setSummaryResultValues(List<SummaryResultValue> summaryResultValues) {
-        this.summaryResultValues = summaryResultValues;
     }
 
     public String getQuery() {

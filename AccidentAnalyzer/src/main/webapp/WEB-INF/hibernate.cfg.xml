@@ -10,6 +10,6 @@
     <property name="show_sql">false</property>
     <property name="hibernate.jdbc.batch_size">20</property>
     <property name="hibernate.cache.use_second_level_cache">false</property>
-    <property name="hbm2ddl.auto">create-drop</property>
+    <property name="hbm2ddl.auto">update</property>
   </session-factory>
 </hibernate-configuration>

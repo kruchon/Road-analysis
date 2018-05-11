@@ -9,7 +9,6 @@ import org.kruchon.accidentAnalyzer.domain.SummaryResultValue;
 import org.kruchon.accidentAnalyzer.service.SummaryResultValueService;
 import org.kruchon.accidentAnalyzer.service.SummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,15 +37,15 @@ public class SummariesExecutor {
         }
     }
 
-    private List<SummaryResultValue> convertResultToSummaryResultValues(List<HashMap<String,String>> result, Summary summary){
+    private List<SummaryResultValue> convertResultToSummaryResultValues(List<HashMap<String,Object>> result, Summary summary){
         List<SummaryResultValue> summaryResultValues = new ArrayList<SummaryResultValue>();
         for(int resultLineNumber = 0; resultLineNumber < result.size(); resultLineNumber++){
-            HashMap<String,String> resultLine = result.get(resultLineNumber);
-            for(Map.Entry<String,String> columnValue : resultLine.entrySet()) {
+            HashMap<String,Object> resultLine = result.get(resultLineNumber);
+            for(Map.Entry<String,Object> columnValue : resultLine.entrySet()) {
                 SummaryResultValue summaryResultValue = new SummaryResultValue();
                 summaryResultValue.setResultLine(resultLineNumber);
                 summaryResultValue.setColumnName(columnValue.getKey());
-                summaryResultValue.setValue(columnValue.getValue());
+                summaryResultValue.setValue(columnValue.getValue().toString());
                 summaryResultValue.setSummary(summary);
                 summaryResultValues.add(summaryResultValue);
             }
@@ -57,9 +56,8 @@ public class SummariesExecutor {
     public List<SummaryResultValue> executeAndSaveSummary(Summary summary,Session session){
         String queryStr = summary.getQuery();
         Query query = session.createSQLQuery(queryStr);
-        List<HashMap<String,String>> result = query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE).list();
+        List<HashMap<String,Object>> result = query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE).list();
         List<SummaryResultValue> summaryResultValues = convertResultToSummaryResultValues(result,summary);
-        summary.setSummaryResultValues(summaryResultValues);
         summaryResultValueService.deleteBySummaryId(summary.getId(),session);
         summaryResultValueService.saveAll(summaryResultValues,session);
         summaryService.save(summary,session);

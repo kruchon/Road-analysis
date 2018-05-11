@@ -18,7 +18,7 @@ public class SummariesCache {
     private Map<Long, Summary> summariesMap = new ConcurrentHashMap<Long, Summary>();
 
     @PostConstruct
-    private void initCache(){
+    public void resetCache(){
         Collection<Summary> summaries = summaryService.getAll();
         for(Summary summary : summaries){
             summariesMap.put(summary.getId(),summary);
