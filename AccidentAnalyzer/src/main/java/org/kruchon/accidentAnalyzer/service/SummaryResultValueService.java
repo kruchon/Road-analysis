@@ -1,5 +1,6 @@
 package org.kruchon.accidentAnalyzer.service;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.kruchon.accidentAnalyzer.domain.Accident;
@@ -32,5 +33,28 @@ public class SummaryResultValueService {
                 session.clear();
             }
         }
+    }
+
+    public void save(SummaryResultValue summaryResultValue,Session session){
+        session.save(summaryResultValue);
+    }
+
+    public void saveAll(List<SummaryResultValue> summaryResultValues, Session session) {
+        for(int i = 0; i<summaryResultValues.size(); i++){
+            SummaryResultValue summaryResultValue = summaryResultValues.get(i);
+            save(summaryResultValue,session);
+            if(i % 20 == 0){
+                session.flush();
+                session.clear();
+            }
+        }
+    }
+
+    public void deleteBySummaryId(Long id, Session session) {
+        Query deleteQuery = session.createQuery("delete from org.kruchon.accidentAnalyzer.domain.SummaryResultValue " +
+                "where summary_id = :id");
+        deleteQuery.setLong("id",id);
+        deleteQuery.executeUpdate();
+
     }
 }

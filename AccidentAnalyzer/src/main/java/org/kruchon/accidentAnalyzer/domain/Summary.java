@@ -10,7 +10,7 @@ public class Summary implements Serializable{
     private static final long serialVersionUID = 5323700715449849741L;
     private String query;
 
-    @OneToMany
+    @OneToMany(mappedBy = "id")
     private List<SummaryResultValue> summaryResultValues;
 
     @Id

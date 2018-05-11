@@ -34,40 +34,23 @@ public class SummaryService {
         summariesCache.putSummary(summary);
     }
 
+    public void save(Summary summary,Session session) {
+        session.save(summary);
+        summariesCache.putSummary(summary);
+    }
+
+    @Transactional
     public void saveAll(List<Summary> summaries){
-        for(Summary summary : summaries){
-            save(summary);
-        }
-    }
-
-    private List<SummaryResultValue> convertResultToSummaryResultValues(List<HashMap<String,String>> result, Summary summary){
-        List<SummaryResultValue> summaryResultValues = new ArrayList<SummaryResultValue>();
-        for(int resultLineNumber = 0; resultLineNumber < result.size(); resultLineNumber++){
-            HashMap<String,String> resultLine = result.get(resultLineNumber);
-            for(Map.Entry<String,String> columnValue : resultLine.entrySet()) {
-                SummaryResultValue summaryResultValue = new SummaryResultValue();
-                summaryResultValue.setResultLine(resultLineNumber);
-                summaryResultValue.setColumnName(columnValue.getKey());
-                summaryResultValue.setValue(columnValue.getValue());
-                summaryResultValue.setSummary(summary);
-                summaryResultValues.add(summaryResultValue);
-            }
-        }
-        return summaryResultValues;
-    }
-
-
-    public List<SummaryResultValue> executeAndSaveSummary(Summary summary){
         Session session = sessionFactory.getCurrentSession();
-        String queryStr = summary.getQuery();
-        Query query = session.createSQLQuery(queryStr);
-        List<HashMap<String,String>> result = query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE).list();
-        List<SummaryResultValue> summaryResultValues = convertResultToSummaryResultValues(result,summary);
-        summary.setSummaryResultValues(summaryResultValues);
-        summaryResultValueService.saveAll(summaryResultValues);
-        save(summary);
-        session.close();
-        return summaryResultValues;
+        for(Summary summary : summaries){
+            save(summary,session);
+        }
+    }
+
+    public void saveAll(List<Summary> summaries, Session session){
+        for(Summary summary : summaries){
+            save(summary,session);
+        }
     }
 
     @Transactional
