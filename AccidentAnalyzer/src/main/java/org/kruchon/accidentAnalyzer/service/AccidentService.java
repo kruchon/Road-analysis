@@ -39,6 +39,8 @@ public class AccidentService {
         }
     }
 
+
+
     @Transactional
     public void deleteAll(){
         Session session = sessionFactory.getCurrentSession();

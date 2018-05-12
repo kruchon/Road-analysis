@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class MainController {
+public class ClusterController {
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -24,11 +24,6 @@ public class MainController {
 
     @Autowired
     private AccidentsHolder accidentsHolder;
-
-    @RequestMapping(value = "clusterMap", method = RequestMethod.GET)
-    public String sendClusterPage(){
-         return "clusterMap";
-    }
 
     @RequestMapping(value = "getClusters", method = RequestMethod.POST)
     public ResponseEntity<String> getClusters(@RequestParam("minSize") Integer minSize, @RequestParam("minPercent") Float minPercent) throws JsonProcessingException {

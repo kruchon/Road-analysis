@@ -17,16 +17,16 @@ import java.util.*;
 @Service
 public class SummariesExecutor {
     @Autowired
-    SummariesCache summariesCache;
+    private SummariesCache summariesCache;
 
     @Autowired
-    SummaryService summaryService;
+    private SummaryService summaryService;
 
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @Autowired
-    SummaryResultValueService summaryResultValueService;
+    private SummaryResultValueService summaryResultValueService;
 
     @Transactional
     public void executeAndSaveAllSummaries(){

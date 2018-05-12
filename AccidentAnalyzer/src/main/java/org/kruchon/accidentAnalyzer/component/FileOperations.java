@@ -1,4 +1,4 @@
-package org.kruchon.accidentAnalyzer.component.impl;
+package org.kruchon.accidentAnalyzer.component;
 
 import org.springframework.stereotype.Component;
 
