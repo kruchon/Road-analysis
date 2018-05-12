@@ -34,6 +34,11 @@ public class SummaryService {
         summariesCache.putSummary(summary);
     }
 
+    public void update(Summary summary,Session session){
+        session.update(summary);
+        summariesCache.putSummary(summary);
+    }
+
     @Transactional
     public void saveAll(List<Summary> summaries){
         Session session = sessionFactory.getCurrentSession();

@@ -64,10 +64,9 @@ public class AccidentUpdater {
     }
 
     private void mapAndSave(JSONArray accidentsData) throws IOException {
-        List<Accident> accidents = mapJsonArrayToObjects(accidentsData);
-        accidentService.deleteAll();
-        accidentService.saveAll(accidents);
-        summariesExecutor.executeAndSaveAllSummaries();
+        //List<Accident> accidents = mapJsonArrayToObjects(accidentsData);
+        //accidentService.deleteAll();
+        //accidentService.saveAll(accidents);
         /*AccidentsClusterer accidentsClusterer = new AccidentClustererImpl();
         List<AccidentCluster> clusters = accidentsClusterer.calculate(accidents);
         clusterReport.setClusters(clusters);*/
@@ -78,13 +77,14 @@ public class AccidentUpdater {
         //fileOperations.downloadUsingNIO("https://xn--80abhddbmm5bieahtk5n.xn--p1ai/opendata-storage/2015-crash.json.zip",resourcesPath+"first.zip");
         //fileOperations.unpack(resourcesPath+"first.zip",resourcesPath);
 
-        JSONArray accidentsData = readAccidentsData();
+        //JSONArray accidentsData = readAccidentsData();
 //TODO develop OSMdataFiller
         //TODO (characteristics for accidents such as speed mode of road, road type, slope of the road..)
         //OSMAccidentsDataFiller.fill(accidentsData);
 
         //TODO implement full deletion in table Accidents
         //clearAccidentsTable();
-        mapAndSave(accidentsData);
+        //mapAndSave(accidentsData);
+        summariesExecutor.executeAndSaveAllSummaries();
     }
 }

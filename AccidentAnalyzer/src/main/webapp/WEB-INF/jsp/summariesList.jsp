@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+
 <head>
+    <meta name="http-equiv" content="Content-type: text/html; charset=UTF-8">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
@@ -12,31 +14,22 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="resources/js/printButtonsOnSummariesPageLoad.js" charset="utf-8"></script>
 </head>
 <body>
 <nav role="navigation" class="navbar navbar-default">
-
-    <!-- Toggle menu for mobile display -->
-    <div class="navbar-header">
-        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>
-
     <!-- default menu -->
     <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Contact</a></li>
+            <li class="active"><a href="#">Summaries</a></li>
+            <li><a href="#">Cluster map</a></li>
         </ul>
     </div>
-
 </nav>
 
+<div id="buttonsWithSummaries">
+    <!-- content will be printed by 'printButtonsOnSummariesPageLoad.js' -->
+</div>
 
 </body>
 </html>

@@ -61,7 +61,7 @@ public class SummariesExecutor {
         List<SummaryResultValue> summaryResultValues = convertResultToSummaryResultValues(result,summary);
         summaryResultValueService.deleteBySummaryId(summary.getId(),session);
         summaryResultValueService.saveAll(summaryResultValues,session);
-        summaryService.save(summary,session);
+        summaryService.update(summary,session);
         return summaryResultValues;
     }
 }
