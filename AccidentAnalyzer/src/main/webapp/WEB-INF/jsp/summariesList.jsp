@@ -23,12 +23,15 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Summaries</a></li>
             <li><a href="#">Cluster map</a></li>
+            <li><button type="button" class="btn btn-primary btn-md" style="margin-top:6%;">Create summary</button></li>
         </ul>
     </div>
 </nav>
 
 <div id="buttonsWithSummaries">
+    <table id="buttonsWithSummariesTable" style="width:100%">
     <!-- content will be printed by 'printButtonsOnSummariesPageLoad.js' -->
+    </table>
 </div>
 
 </body>
