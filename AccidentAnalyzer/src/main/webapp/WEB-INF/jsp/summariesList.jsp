@@ -17,6 +17,11 @@
     <script src="resources/js/printButtonsOnSummariesPageLoad.js" charset="utf-8"></script>
 </head>
 <body>
+<style>
+    body {
+        background-color: #C0C0C0;
+    }
+</style>
 <nav role="navigation" class="navbar navbar-default">
     <!-- default menu -->
     <div id="navbarCollapse" class="collapse navbar-collapse">
