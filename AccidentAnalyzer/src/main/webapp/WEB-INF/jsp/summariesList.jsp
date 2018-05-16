@@ -15,6 +15,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="resources/js/printButtonsOnSummariesPageLoad.js" charset="utf-8"></script>
+    <script src="resources/js/initEditSummary.js"></script>
 </head>
 <body>
 <style>
@@ -22,6 +23,7 @@
         background-color: #C0C0C0;
     }
 </style>
+
 <nav role="navigation" class="navbar navbar-default">
     <!-- default menu -->
     <div id="navbarCollapse" class="collapse navbar-collapse">
@@ -33,11 +35,33 @@
     </div>
 </nav>
 
-<div id="buttonsWithSummaries">
-    <table id="buttonsWithSummariesTable" style="width:100%">
-    <!-- content will be printed by 'printButtonsOnSummariesPageLoad.js' -->
-    </table>
-</div>
+<table>
+    <tr>
+        <td>
+            <div id="buttonsWithSummaries" style="height:90vh;width:300px; overflow-y:scroll;">
+                <!-- content will be printed by 'printButtonsOnSummariesPageLoad.js' -->
+            </div>
+        </td>
+        <td>
+            <div style="padding:30px;">
+                <div id="editSummary" class="panel panel-default" style="width: 600px; height:85vh">
+                    <div class="panel-heading"><h4>Edit Summary</h4></div>
+                    <div class="panel-body">
+                        <label for="summaryName">Name:</label>
+                        <input type="text" class="form-control" id="summaryName" style="width: 300px;">
+                        <br>
+                        <label for="summaryQuery">SQL Query:</label>
+                        <textarea class="form-control" rows="27" id="summaryQuery" style="width: 100%;"></textarea>
+                        <button type="button" class="btn btn-primary btn-md" style="margin-top: 5px;">Save</button>
+                    </div>
+                </div>
+                <div id="resultOfSummary">
+
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
 
 </body>
 </html>

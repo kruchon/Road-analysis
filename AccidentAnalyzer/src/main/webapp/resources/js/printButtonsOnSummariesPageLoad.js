@@ -1,21 +1,16 @@
+var summaries;
 window.onload = function(){
-    var summaries;
+
     $.get( "getSummaries", function( response ) {
-        var buttonsWithSummariesTable = document.getElementById("buttonsWithSummariesTable");
+        var buttonsWithSummaries = document.getElementById("buttonsWithSummaries");
         summaries = JSON.parse(response);
-        var currentTr;
         summaries.forEach(function (summary, itemNum) {
-            if(itemNum % 10 == 0){
-                currentTr = document.createElement("tr");
-                currentTr.setAttribute("style","width:100%");
-                buttonsWithSummariesTable.appendChild(currentTr);
-            }
+            summary.name = "100500";
             var summaryButton = document.createElement("button");
             var summaryId = summary.id;
-            var summaryName = "temp name";
             summaryButton.setAttribute("summary_id",summaryId);
             summaryButton.setAttribute("id",summaryId+"_id")
-            summaryButton.innerText = summaryName;
+            summaryButton.innerText = summary.name;
             summaryButton.setAttribute("class","btn btn-md btn-default dropdown-toggle");
 
             summaryButton.setAttribute("data-toggle","dropdown");
@@ -36,7 +31,8 @@ window.onload = function(){
             var editAction = document.createElement("li");
             dropdownMenu.appendChild(editAction);
             var editLink = document.createElement("a");
-            editLink.setAttribute("href","#");
+            editLink.setAttribute("summary_id",summaryId);
+            editLink.setAttribute("onclick","javascript:initEditSummary("+summaryId+");");
             editLink.innerText = "Edit";
             editAction.appendChild(editLink);
 
@@ -52,11 +48,8 @@ window.onload = function(){
             buttonWithMenu.appendChild(dropdownMenu);
             buttonWithMenu.setAttribute("class","dropdown");
             summaryButton.setAttribute("style","display: inline-block; height: 40px; width: 100%;");
-            buttonWithMenu.setAttribute("style","padding: 10px");
-            var currentTd = document.createElement("td");
-            currentTd.appendChild(buttonWithMenu);
-            currentTd.setAttribute("style","width:10%");
-            currentTr.appendChild(currentTd);
+            buttonWithMenu.setAttribute("style","padding: 5px");
+            buttonsWithSummaries.appendChild(buttonWithMenu);
         });
     });
 }
