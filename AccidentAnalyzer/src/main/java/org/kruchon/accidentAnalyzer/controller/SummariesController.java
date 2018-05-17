@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 public class SummariesController {
@@ -40,5 +42,12 @@ public class SummariesController {
         summary.setName(name);
         summary.setQuery(query);
         summaryService.merge(summary);
+    }
+
+    @RequestMapping(value = "getSummaryResults", method = RequestMethod.GET)
+    public ResponseEntity<String> getSummaryResult(@RequestParam("summaryId") Long summaryId) throws JsonProcessingException {
+        HashMap<String, List<String>> summaryResultTable = summariesCache.getSummaryResultTable(summaryId);
+        String summaryResultTableResponse = mapper.writeValueAsString(summaryResultTable);
+        return new ResponseEntity<String>(summaryResultTableResponse,HttpStatus.OK);
     }
 }

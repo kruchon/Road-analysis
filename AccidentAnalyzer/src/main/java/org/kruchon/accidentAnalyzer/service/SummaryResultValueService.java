@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -60,8 +63,22 @@ public class SummaryResultValueService {
     public List<SummaryResultValue> getBySummaryId(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Query selectQuery = session.createQuery("from org.kruchon.accidentAnalyzer.domain.SummaryResultValue " +
-                "where summary_id = :id");
+                "where summary_id = :id order by resultLine");
         selectQuery.setLong("id",id);
         return selectQuery.list();
+    }
+
+    public HashMap<String,List<String>> getResultTableBySummaryId(Long summaryId) {
+        List<SummaryResultValue> resultValues = getBySummaryId(summaryId);
+        HashMap<String, List<String>> resultTable = new HashMap<String, List<String>>();
+        for(SummaryResultValue resultValue : resultValues){
+            String columnName = resultValue.getColumnName();
+            String value = resultValue.getValue();
+            if(!resultTable.containsKey(columnName)){
+                resultTable.put(columnName,new ArrayList<String>());
+            }
+            resultTable.get(columnName).add(value);
+        }
+        return resultTable;
     }
 }

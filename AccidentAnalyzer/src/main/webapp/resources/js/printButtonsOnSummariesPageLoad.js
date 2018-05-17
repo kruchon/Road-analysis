@@ -23,7 +23,7 @@ function addButton(summary){
     var resultAction = document.createElement("li");
     dropdownMenu.appendChild(resultAction);
     var resultLink = document.createElement("a");
-    resultLink.setAttribute("href","#");
+    resultLink.setAttribute("onclick","javascript:showResults("+summaryId+");");
     resultLink.innerText = "Results";
     resultAction.appendChild(resultLink);
 

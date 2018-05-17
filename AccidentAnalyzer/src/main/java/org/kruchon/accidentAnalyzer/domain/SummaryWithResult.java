@@ -1,19 +1,13 @@
 package org.kruchon.accidentAnalyzer.domain;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class SummaryWithResult {
 
     private Summary summary;
-    private List<SummaryResultValue> summaryResultValues;
+    private HashMap<String, List<String>> summaryResultTable;
 
-    public List<SummaryResultValue> getSummaryResultValues() {
-        return summaryResultValues;
-    }
-
-    public void setSummaryResultValues(List<SummaryResultValue> summaryResultValues) {
-        this.summaryResultValues = summaryResultValues;
-    }
 
     public Summary getSummary() {
         return summary;
@@ -21,5 +15,13 @@ public class SummaryWithResult {
 
     public void setSummary(Summary summary) {
         this.summary = summary;
+    }
+
+    public HashMap<String, List<String>> getSummaryResultTable() {
+        return summaryResultTable;
+    }
+
+    public void setSummaryResultTable(HashMap<String, List<String>> summaryResultTable) {
+        this.summaryResultTable = summaryResultTable;
     }
 }

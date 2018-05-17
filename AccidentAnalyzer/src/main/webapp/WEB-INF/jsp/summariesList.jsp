@@ -18,6 +18,7 @@
     <script src="resources/js/initEditSummary.js"></script>
     <script src="resources/js/saveSummary.js"></script>
     <script src="resources/js/createSummary.js"></script>
+    <script src="resources/js/showResults.js"></script>
 </head>
 <body>
 <style>
@@ -57,8 +58,10 @@
                         <button type="button" class="btn btn-primary btn-md" onclick="javascript:saveSummary()" style="margin-top: 5px;">Save</button>
                     </div>
                 </div>
-                <div id="resultOfSummary">
-
+                <div class="table-responsive" style="height:85vh; overflow-y: scroll;">
+                    <table id="summaryResults" class="table">
+                        <!-- content will be printed by 'showResults.js' -->
+                    </table>
                 </div>
             </div>
         </td>

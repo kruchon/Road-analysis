@@ -7,10 +7,8 @@ import org.kruchon.accidentAnalyzer.service.SummaryResultValueService;
 import org.kruchon.accidentAnalyzer.service.SummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
@@ -33,8 +31,8 @@ public class SummariesCache {
     public void putSummary(Summary summary){
         SummaryWithResult summaryWithResult = new SummaryWithResult();
         Long summaryId = summary.getId();
-        List<SummaryResultValue> summaryResultValues = summaryResultValueService.getBySummaryId(summaryId);
-        summaryWithResult.setSummaryResultValues(summaryResultValues);
+        HashMap<String, List<String>> summaryResultTable = summaryResultValueService.getResultTableBySummaryId(summaryId);
+        summaryWithResult.setSummaryResultTable(summaryResultTable);
         summaryWithResult.setSummary(summary);
         summariesMap.put(summaryId,summaryWithResult);
     }
@@ -43,9 +41,9 @@ public class SummariesCache {
         return summariesMap.get(summaryId);
     }
 
-    @SuppressWarnings("unchecked")
-    public List<SummaryWithResult> getAllSummaryWithResults(){
-        return (List<SummaryWithResult>) summariesMap.values();
+    public HashMap<String, List<String>> getSummaryResultTable(Long summaryId){
+        SummaryWithResult summaryWithResult = summariesMap.get(summaryId);
+        return summaryWithResult.getSummaryResultTable();
     }
 
     public Summary getSummary(Long summaryId){

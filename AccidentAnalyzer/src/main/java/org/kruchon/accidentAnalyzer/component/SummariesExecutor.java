@@ -11,6 +11,7 @@ import org.kruchon.accidentAnalyzer.service.SummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -46,7 +47,8 @@ public class SummariesExecutor {
                 SummaryResultValue summaryResultValue = new SummaryResultValue();
                 summaryResultValue.setResultLine(resultLineNumber);
                 summaryResultValue.setColumnName(columnValue.getKey());
-                summaryResultValue.setValue(columnValue.getValue().toString());
+                String value = columnValue.getValue() == null ? "" : columnValue.getValue().toString();
+                summaryResultValue.setValue(value);
                 summaryResultValue.setSummary(summary);
                 summaryResultValues.add(summaryResultValue);
             }

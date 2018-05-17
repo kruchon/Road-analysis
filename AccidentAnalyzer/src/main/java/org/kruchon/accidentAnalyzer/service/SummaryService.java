@@ -4,6 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.kruchon.accidentAnalyzer.component.SummariesCache;
+import org.kruchon.accidentAnalyzer.component.SummariesExecutor;
 import org.kruchon.accidentAnalyzer.domain.Summary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ import java.util.List;
 public class SummaryService {
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private SummariesExecutor summariesExecutor;
 
     @Autowired
     private SummariesCache summariesCache;
@@ -65,6 +69,7 @@ public class SummaryService {
     public void merge(Summary summary) {
         Session session = sessionFactory.getCurrentSession();
         session.merge(summary);
+        summariesExecutor.executeAndSaveSummary(summary,session);
         summariesCache.putSummary(summary);
         session.getTransaction().commit();
     }
