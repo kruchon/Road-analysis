@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Summary implements Serializable{
     private static final long serialVersionUID = 5323700715449849741L;
     private String query;
+    private String name;
 
     @Id
     @GeneratedValue
@@ -27,5 +28,13 @@ public class Summary implements Serializable{
 
     public void setQuery(String query) {
         this.query = query;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

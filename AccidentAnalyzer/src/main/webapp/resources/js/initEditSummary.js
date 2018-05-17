@@ -1,7 +1,12 @@
+var selectedSummaryId;
 function initEditSummary(summaryId){
+    newSummary = false;
     var summary = summaries.find(x=>x.id === summaryId);
+    selectedSummaryId = summary.id;
     var summaryNameField = document.getElementById("summaryName");
     var summaryQueryField = document.getElementById("summaryQuery");
-    summaryNameField.setAttribute("value",summary.name);
-    summaryQueryField.innerText = summary.query;
+    summaryNameField.value = summary.name;
+    summaryQueryField.value = summary.query;
+    var editSummaryDiv = document.getElementById("editSummary");
+    editSummaryDiv.style.display = "block";
 }

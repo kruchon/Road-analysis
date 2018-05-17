@@ -16,6 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="resources/js/printButtonsOnSummariesPageLoad.js" charset="utf-8"></script>
     <script src="resources/js/initEditSummary.js"></script>
+    <script src="resources/js/saveSummary.js"></script>
 </head>
 <body>
 <style>
@@ -44,7 +45,7 @@
         </td>
         <td>
             <div style="padding:30px;">
-                <div id="editSummary" class="panel panel-default" style="width: 600px; height:85vh">
+                <div id="editSummary" class="panel panel-default" style="width: 600px; height:85vh; display: none;">
                     <div class="panel-heading"><h4>Edit Summary</h4></div>
                     <div class="panel-body">
                         <label for="summaryName">Name:</label>
@@ -52,7 +53,7 @@
                         <br>
                         <label for="summaryQuery">SQL Query:</label>
                         <textarea class="form-control" rows="27" id="summaryQuery" style="width: 100%;"></textarea>
-                        <button type="button" class="btn btn-primary btn-md" style="margin-top: 5px;">Save</button>
+                        <button type="button" class="btn btn-primary btn-md" onclick="javascript:saveSummary()" style="margin-top: 5px;">Save</button>
                     </div>
                 </div>
                 <div id="resultOfSummary">

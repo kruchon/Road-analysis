@@ -61,4 +61,11 @@ public class SummaryService {
         return getSummaryQuery.list();
     }
 
+    @Transactional
+    public void saveOrUpdate(Summary summary) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(summary);
+        summariesCache.putSummary(summary);
+        session.getTransaction().commit();
+    }
 }
