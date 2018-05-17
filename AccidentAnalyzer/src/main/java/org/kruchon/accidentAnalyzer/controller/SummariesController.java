@@ -33,12 +33,12 @@ public class SummariesController {
         return new ResponseEntity<String>(summariesResponse, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "updateSummary", method = RequestMethod.POST)
-    public void updateSummary(@RequestParam("id")Long id, @RequestParam("name") String name, @RequestParam("query") String query){
+    @RequestMapping(value = "mergeSummary", method = RequestMethod.POST)
+    public void mergeSummary(@RequestParam("id")Long id, @RequestParam("name") String name, @RequestParam("query") String query){
         Summary summary = new Summary();
         summary.setId(id);
         summary.setName(name);
         summary.setQuery(query);
-        summaryService.saveOrUpdate(summary);
+        summaryService.merge(summary);
     }
 }

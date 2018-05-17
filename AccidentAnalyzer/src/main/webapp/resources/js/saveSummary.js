@@ -25,7 +25,7 @@ function reloadButton(summaryId, newName){
 
 //govnokod
 function sendSaveSummaryRequest(summary){
-    $.post('updateSummary', {
+    $.post('mergeSummary', {
         id: summary.id,
         name: summary.name,
         query: summary.query

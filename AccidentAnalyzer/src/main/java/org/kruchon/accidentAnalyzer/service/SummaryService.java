@@ -62,7 +62,7 @@ public class SummaryService {
     }
 
     @Transactional
-    public void saveOrUpdate(Summary summary) {
+    public void merge(Summary summary) {
         Session session = sessionFactory.getCurrentSession();
         session.merge(summary);
         summariesCache.putSummary(summary);
