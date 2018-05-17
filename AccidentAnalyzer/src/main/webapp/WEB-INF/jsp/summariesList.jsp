@@ -17,6 +17,7 @@
     <script src="resources/js/printButtonsOnSummariesPageLoad.js" charset="utf-8"></script>
     <script src="resources/js/initEditSummary.js"></script>
     <script src="resources/js/saveSummary.js"></script>
+    <script src="resources/js/createSummary.js"></script>
 </head>
 <body>
 <style>
@@ -31,7 +32,7 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Summaries</a></li>
             <li><a href="#">Cluster map</a></li>
-            <li><button type="button" class="btn btn-primary btn-md" style="margin-top:6%;">Create summary</button></li>
+            <li><button type="button" class="btn btn-primary btn-md" onclick="javascript:createSummary()" style="margin-top:6%;">Create summary</button></li>
         </ul>
     </div>
 </nav>

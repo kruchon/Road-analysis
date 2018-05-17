@@ -1,5 +1,11 @@
 function saveSummary(){
-    var summary = summaries.find(x=>x.id===selectedSummaryId);
+    var summary;
+    if(!newSummary) {
+        summary = summaries.find(function(summary){summary.id==selectedSummaryId});
+    } else {
+        summary = {};
+        summary.id = selectedSummaryId;
+    }
     var newName = document.getElementById("summaryName").value;
     var newQuery = document.getElementById("summaryQuery").value;
     summary.name = newName;
