@@ -1,7 +1,7 @@
 function saveSummary(){
     var summary;
     if(!newSummary) {
-        summary = summaries.find(function(summary){summary.id==selectedSummaryId});
+        summary = summaries.find(summary => summary.id === selectedSummaryId);
     } else {
         summary = {};
         summary.id = selectedSummaryId;

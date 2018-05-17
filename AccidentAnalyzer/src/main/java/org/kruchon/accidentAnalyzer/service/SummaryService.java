@@ -64,7 +64,7 @@ public class SummaryService {
     @Transactional
     public void saveOrUpdate(Summary summary) {
         Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(summary);
+        session.merge(summary);
         summariesCache.putSummary(summary);
         session.getTransaction().commit();
     }
