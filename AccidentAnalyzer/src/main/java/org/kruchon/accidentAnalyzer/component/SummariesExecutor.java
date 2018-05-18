@@ -64,6 +64,7 @@ public class SummariesExecutor {
         summaryResultValueService.deleteBySummaryId(summary.getId(),session);
         summaryResultValueService.saveAll(summaryResultValues,session);
         summaryService.update(summary,session);
+        summariesCache.putSummary(summary,session);
         return summaryResultValues;
     }
 }

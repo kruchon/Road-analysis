@@ -70,7 +70,6 @@ public class SummaryService {
         Session session = sessionFactory.getCurrentSession();
         session.merge(summary);
         summariesExecutor.executeAndSaveSummary(summary,session);
-        summariesCache.putSummary(summary);
         session.getTransaction().commit();
     }
 }

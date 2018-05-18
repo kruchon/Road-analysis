@@ -4,6 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.kruchon.accidentAnalyzer.domain.SummaryResultValue;
+import org.kruchon.accidentAnalyzer.utils.AccidentConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,9 @@ import java.util.List;
 public class SummaryResultValueService {
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private AccidentConverter accidentConverter;
 
     @Transactional
     public void save(SummaryResultValue summaryResultValue){
@@ -70,15 +74,18 @@ public class SummaryResultValueService {
 
     public HashMap<String,List<String>> getResultTableBySummaryId(Long summaryId) {
         List<SummaryResultValue> resultValues = getBySummaryId(summaryId);
-        HashMap<String, List<String>> resultTable = new HashMap<String, List<String>>();
-        for(SummaryResultValue resultValue : resultValues){
-            String columnName = resultValue.getColumnName();
-            String value = resultValue.getValue();
-            if(!resultTable.containsKey(columnName)){
-                resultTable.put(columnName,new ArrayList<String>());
-            }
-            resultTable.get(columnName).add(value);
-        }
-        return resultTable;
+        return accidentConverter.convertToTable(resultValues);
+    }
+
+    public HashMap<String,List<String>> getResultTableBySummaryId(Long summaryId, Session session) {
+        List<SummaryResultValue> resultValues = getBySummaryId(summaryId,session);
+        return accidentConverter.convertToTable(resultValues);
+    }
+
+    private List<SummaryResultValue> getBySummaryId(Long summaryId, Session session) {
+        Query selectQuery = session.createQuery("from org.kruchon.accidentAnalyzer.domain.SummaryResultValue " +
+                "where summary_id = :id order by resultLine");
+        selectQuery.setLong("id",summaryId);
+        return selectQuery.list();
     }
 }

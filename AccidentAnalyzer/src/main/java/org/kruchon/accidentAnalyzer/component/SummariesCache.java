@@ -1,5 +1,6 @@
 package org.kruchon.accidentAnalyzer.component;
 
+import org.hibernate.Session;
 import org.kruchon.accidentAnalyzer.domain.Summary;
 import org.kruchon.accidentAnalyzer.domain.SummaryResultValue;
 import org.kruchon.accidentAnalyzer.domain.SummaryWithResult;
@@ -32,6 +33,15 @@ public class SummariesCache {
         SummaryWithResult summaryWithResult = new SummaryWithResult();
         Long summaryId = summary.getId();
         HashMap<String, List<String>> summaryResultTable = summaryResultValueService.getResultTableBySummaryId(summaryId);
+        summaryWithResult.setSummaryResultTable(summaryResultTable);
+        summaryWithResult.setSummary(summary);
+        summariesMap.put(summaryId,summaryWithResult);
+    }
+
+    public void putSummary(Summary summary, Session session){
+        SummaryWithResult summaryWithResult = new SummaryWithResult();
+        Long summaryId = summary.getId();
+        HashMap<String, List<String>> summaryResultTable = summaryResultValueService.getResultTableBySummaryId(summaryId, session);
         summaryWithResult.setSummaryResultTable(summaryResultTable);
         summaryWithResult.setSummary(summary);
         summariesMap.put(summaryId,summaryWithResult);

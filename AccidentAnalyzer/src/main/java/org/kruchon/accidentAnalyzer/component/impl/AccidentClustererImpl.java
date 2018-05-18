@@ -59,7 +59,7 @@ public class AccidentClustererImpl implements AccidentsClusterer{
 
     private List<Cluster<DoublePoint>> calculateClusters(List<Accident> accidents){
         int numberOfClusters = round(accidents.size() * AccidentConst.NUMBER_OF_CLUSTERS_TO_TOTAL_SIZE);
-        Clusterer<DoublePoint> clusterer = new KMeansPlusPlusClusterer<DoublePoint>(numberOfClusters, 1000, new DistanceMeasure() {
+        Clusterer<DoublePoint> clusterer = new KMeansPlusPlusClusterer<DoublePoint>(numberOfClusters, 100, new DistanceMeasure() {
             public double compute(double[] firstPoint, double[] secondPoint) {
                 double distance = Math.sqrt(Math.pow(firstPoint[0]-secondPoint[0],2)+Math.pow(firstPoint[1]-secondPoint[1],2));
                 return distance > 0.003 ? 100 : distance;
@@ -109,9 +109,8 @@ public class AccidentClustererImpl implements AccidentsClusterer{
     }
 
     public List<AccidentCluster> calculate(List<Accident> accidents) {
-
         accidents = filterAccidents(accidents);
-        /*List<List<Accident>> accidentZones = devide(accidents);
+        List<List<Accident>> accidentZones = devide(accidents);
         accidentZones = filterZones(accidentZones);
         List<Cluster<DoublePoint>> result = new ArrayList<Cluster<DoublePoint>>();
         for(List<Accident> accidentZone : accidentZones){
@@ -119,11 +118,11 @@ public class AccidentClustererImpl implements AccidentsClusterer{
             if(clusters != null) {
                 result.addAll(clusters);
             }
-        }*/
+        }
 
-        List<Cluster<DoublePoint>> clusteringResult = calculateClusters(accidents);
+        //List<Cluster<DoublePoint>> clusteringResult = calculateClusters(accidents);
         List<AccidentCluster> clusters = new LinkedList<AccidentCluster>();
-        for(Cluster<DoublePoint> clusteringResultNode : clusteringResult){
+        for(Cluster<DoublePoint> clusteringResultNode : result){
             CentroidCluster centroidCluster = (CentroidCluster) clusteringResultNode;
             AccidentCluster accidentCluster = new AccidentCluster();
             List<Accident> accidentsInCluster = getAccidentsFromCentroidCluster(centroidCluster);

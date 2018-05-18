@@ -27,12 +27,11 @@
     }
 </style>
 
-<nav role="navigation" class="navbar navbar-default">
-    <!-- default menu -->
+<nav role="navigation" class="navbar navbar-default" style="margin-bottom: 0;">
     <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Summaries</a></li>
-            <li><a href="#">Cluster map</a></li>
+            <li class="active"><a href="/accidentAnalyzer/summariesList">Summaries</a></li>
+            <li><a href="/accidentAnalyzer/clusterMap">Cluster map</a></li>
             <li><button type="button" class="btn btn-primary btn-md" onclick="javascript:createSummary()" style="margin-top:6%;">Create summary</button></li>
         </ul>
     </div>
@@ -58,7 +57,7 @@
                         <button type="button" class="btn btn-primary btn-md" onclick="javascript:saveSummary()" style="margin-top: 5px;">Save</button>
                     </div>
                 </div>
-                <div id="summaryResultsTable" class="table-bordered" style="height:85vh; overflow-y: scroll; background-color: #FFFFFF;">
+                <div id="summaryResultsTable" class="table-bordered" style="height:90vh; overflow-y: scroll; background-color: #FFFFFF;">
                     <table id="summaryResults" class="table">
                         <!-- content will be printed by 'showResults.js' -->
                         <thead>

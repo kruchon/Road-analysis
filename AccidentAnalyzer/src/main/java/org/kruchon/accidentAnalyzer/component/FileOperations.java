@@ -24,6 +24,7 @@ public class FileOperations {
         {
             fis.write(buffer, 0, count);
         }
+        File פאיכ;
         fis.close();
         bis.close();
     }

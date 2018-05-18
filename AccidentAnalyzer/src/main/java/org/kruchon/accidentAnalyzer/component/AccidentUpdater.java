@@ -4,7 +4,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.kruchon.accidentAnalyzer.component.impl.AccidentClustererImpl;
 import org.kruchon.accidentAnalyzer.domain.Accident;
+import org.kruchon.accidentAnalyzer.domain.AccidentCluster;
 import org.kruchon.accidentAnalyzer.domain.ClusterReport;
 import org.kruchon.accidentAnalyzer.service.AccidentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,12 +66,12 @@ public class AccidentUpdater {
     }
 
     private void mapAndSave(JSONArray accidentsData) throws IOException {
-        //List<Accident> accidents = mapJsonArrayToObjects(accidentsData);
+        List<Accident> accidents = mapJsonArrayToObjects(accidentsData);
         //accidentService.deleteAll();
         //accidentService.saveAll(accidents);
-        /*AccidentsClusterer accidentsClusterer = new AccidentClustererImpl();
+        AccidentsClusterer accidentsClusterer = new AccidentClustererImpl();
         List<AccidentCluster> clusters = accidentsClusterer.calculate(accidents);
-        clusterReport.setClusters(clusters);*/
+        clusterReport.setClusters(clusters);
     }
 
     @Scheduled(fixedDelay = 86400000)
@@ -77,14 +79,14 @@ public class AccidentUpdater {
         //fileOperations.downloadUsingNIO("https://xn--80abhddbmm5bieahtk5n.xn--p1ai/opendata-storage/2015-crash.json.zip",resourcesPath+"first.zip");
         //fileOperations.unpack(resourcesPath+"first.zip",resourcesPath);
 
-        //JSONArray accidentsData = readAccidentsData();
+        JSONArray accidentsData = readAccidentsData();
 //TODO develop OSMdataFiller
         //TODO (characteristics for accidents such as speed mode of road, road type, slope of the road..)
         //OSMAccidentsDataFiller.fill(accidentsData);
 
         //TODO implement full deletion in table Accidents
         //clearAccidentsTable();
-        //mapAndSave(accidentsData);
+        mapAndSave(accidentsData);
         summariesExecutor.executeAndSaveAllSummaries();
     }
 }
