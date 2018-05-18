@@ -1,4 +1,8 @@
 function showResults(summaryId){
+    var editSummaryDiv = document.getElementById("editSummary");
+    var summaryResultsTableDiv = document.getElementById("summaryResultsTable");
+    editSummaryDiv.style.display = "none";
+    summaryResultsTableDiv.style.display = "block";
     $.get('getSummaryResults', {
         summaryId: summaryId
     }).done(function (response) {

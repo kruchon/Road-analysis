@@ -1,8 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=utf-8" language="java" %>
 <!DOCTYPE html>
 
 <head>
-    <meta name="http-equiv" content="Content-type: text/html; charset=UTF-8">
+    <meta name="http-equiv" content="Content-type: text/html;">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
@@ -58,7 +58,7 @@
                         <button type="button" class="btn btn-primary btn-md" onclick="javascript:saveSummary()" style="margin-top: 5px;">Save</button>
                     </div>
                 </div>
-                <div class="table-bordered" style="height:85vh; overflow-y: scroll; background-color: #FFFFFF;">
+                <div id="summaryResultsTable" class="table-bordered" style="height:85vh; overflow-y: scroll; background-color: #FFFFFF;">
                     <table id="summaryResults" class="table">
                         <!-- content will be printed by 'showResults.js' -->
                         <thead>

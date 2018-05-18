@@ -8,5 +8,7 @@ function initEditSummary(summaryId){
     summaryNameField.value = summary.name;
     summaryQueryField.value = summary.query;
     var editSummaryDiv = document.getElementById("editSummary");
+    var summaryResultsTableDiv = document.getElementById("summaryResultsTable");
     editSummaryDiv.style.display = "block";
+    summaryResultsTableDiv.style.display = "none";
 }
