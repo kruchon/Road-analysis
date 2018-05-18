@@ -41,7 +41,7 @@ public class SummariesCache {
         return summariesMap.get(summaryId);
     }
 
-    public HashMap<String, List<String>> getSummaryResultTable(Long summaryId){
+    public HashMap<String,List<String>> getSummaryResultTable(Long summaryId){
         SummaryWithResult summaryWithResult = summariesMap.get(summaryId);
         return summaryWithResult.getSummaryResultTable();
     }

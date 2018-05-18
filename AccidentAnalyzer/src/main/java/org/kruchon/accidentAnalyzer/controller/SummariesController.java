@@ -46,7 +46,7 @@ public class SummariesController {
 
     @RequestMapping(value = "getSummaryResults", method = RequestMethod.GET)
     public ResponseEntity<String> getSummaryResult(@RequestParam("summaryId") Long summaryId) throws JsonProcessingException {
-        HashMap<String, List<String>> summaryResultTable = summariesCache.getSummaryResultTable(summaryId);
+        HashMap<String,List<String>> summaryResultTable = summariesCache.getSummaryResultTable(summaryId);
         String summaryResultTableResponse = mapper.writeValueAsString(summaryResultTable);
         return new ResponseEntity<String>(summaryResultTableResponse,HttpStatus.OK);
     }

@@ -58,9 +58,17 @@
                         <button type="button" class="btn btn-primary btn-md" onclick="javascript:saveSummary()" style="margin-top: 5px;">Save</button>
                     </div>
                 </div>
-                <div class="table-responsive" style="height:85vh; overflow-y: scroll;">
+                <div class="table-bordered" style="height:85vh; overflow-y: scroll; background-color: #FFFFFF;">
                     <table id="summaryResults" class="table">
                         <!-- content will be printed by 'showResults.js' -->
+                        <thead>
+                        <tr id="tableColumns">
+
+                        </tr>
+                        </thead>
+                        <tbody id="tableValues">
+
+                        </tbody>
                     </table>
                 </div>
             </div>
