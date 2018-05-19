@@ -1,5 +1,6 @@
 package org.kruchon.accidentAnalyzer.component;
 
+import org.hibernate.JDBCException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -56,7 +57,7 @@ public class SummariesExecutor {
         return summaryResultValues;
     }
 
-    public List<SummaryResultValue> executeAndSaveSummary(Summary summary,Session session){
+    public List<SummaryResultValue> executeAndSaveSummary(Summary summary,Session session) throws JDBCException {
         String queryStr = summary.getQuery();
         Query query = session.createSQLQuery(queryStr);
         List<HashMap<String,Object>> result = query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE).list();

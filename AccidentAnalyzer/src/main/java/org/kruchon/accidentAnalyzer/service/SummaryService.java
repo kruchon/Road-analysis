@@ -1,5 +1,6 @@
 package org.kruchon.accidentAnalyzer.service;
 
+import org.hibernate.JDBCException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -68,8 +69,14 @@ public class SummaryService {
     @Transactional
     public void merge(Summary summary) {
         Session session = sessionFactory.getCurrentSession();
-        session.merge(summary);
-        summariesExecutor.executeAndSaveSummary(summary,session);
-        session.getTransaction().commit();
+        try {
+            summariesExecutor.executeAndSaveSummary(summary,session);
+            session.getTransaction().commit();
+        } catch (JDBCException e){
+            session.getTransaction().rollback();
+            session.close();
+            throw new RuntimeException("Error in summary merge");
+        }
+
     }
 }
