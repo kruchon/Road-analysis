@@ -70,6 +70,7 @@ public class SummaryService {
     public void merge(Summary summary) {
         Session session = sessionFactory.getCurrentSession();
         try {
+            summary = (Summary)session.merge(summary);
             summariesExecutor.executeAndSaveSummary(summary,session);
             session.getTransaction().commit();
         } catch (JDBCException e){

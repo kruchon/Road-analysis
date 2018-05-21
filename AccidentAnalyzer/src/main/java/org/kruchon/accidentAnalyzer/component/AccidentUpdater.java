@@ -53,6 +53,14 @@ public class AccidentUpdater {
         Object obj = parser.parse(new FileReader(resourcesPath + "2015-crash.json"));
         JSONObject jsonObject = (JSONObject) obj;
         JSONArray accidentsData = (JSONArray) jsonObject.get("items");
+
+        obj = parser.parse(new FileReader(resourcesPath + "2016-crash.json"));
+        jsonObject = (JSONObject) obj;
+        accidentsData.addAll((JSONArray) jsonObject.get("items"));
+
+        obj = parser.parse(new FileReader(resourcesPath + "2017-crash.json"));
+        jsonObject = (JSONObject) obj;
+        accidentsData.addAll((JSONArray) jsonObject.get("items"));
         return accidentsData;
     }
 
