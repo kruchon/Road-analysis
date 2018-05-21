@@ -10,8 +10,8 @@ import java.util.Date;
 public class AccidentAdapterForMapping {
     private Accident accident = new Accident();
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyy");
-    private static final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
     public AccidentAdapterForMapping() {
         super();
