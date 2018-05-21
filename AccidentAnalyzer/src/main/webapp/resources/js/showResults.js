@@ -20,7 +20,7 @@ function showResults(summaryId){
         }
 
         //govnokod, remake column view
-        for(var row = 0; row<anyColumn.length; row++){
+        for(var row = 0; row<results[anyColumn].length; row++){
             var tr = document.createElement("tr");
             for(var columnName in results){
                 var value = results[columnName][row];

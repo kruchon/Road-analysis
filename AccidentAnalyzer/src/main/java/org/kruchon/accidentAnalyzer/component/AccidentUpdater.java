@@ -75,8 +75,8 @@ public class AccidentUpdater {
 
     private void mapAndSave(JSONArray accidentsData) throws IOException {
         List<Accident> accidents = mapJsonArrayToObjects(accidentsData);
-        //accidentService.deleteAll();
-        //accidentService.saveAll(accidents);
+        accidentService.deleteAll();
+        accidentService.saveAll(accidents);
         AccidentsClusterer accidentsClusterer = new AccidentClustererImpl();
         List<AccidentCluster> clusters = accidentsClusterer.calculate(accidents);
         clusterReport.setClusters(clusters);
